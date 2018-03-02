@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="./app.css" />
+</head>
+
+<body>
+<div class="app-modal-overlay"></div>
+
+<div class="app-modal-container">
+	<div class="app-modal">
+
+		<div class="app-modal-header">
+			<div class="app-modal-closer"><a href="#">X</a></div>
+			<div class="app-modal-title app-modal-bar">
+				<h1>Pawned Password</h1>
+			</div>
+		</div>
+
+		<div class="app-modal-content-container">
+			<div class="app-modal-warning">
+				<span class="app-modal-icon">!</span>
+			</div>
+			<div class="app-modal-content">
+			<p>
+				This password has previously appeared in a data breach.
+				Please use a more secure alternative.
+			</p>
+			<p>
+				
+			</p>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="app-modal-footer app-modal-bar">
+			<p class="app-float-left app-inline">
+				Password check by <a href="https://haveibeenpwned.com">haveibeenpwned.com</a>
+			</p>
+			<p class="app-float-right app-inline">
+				<a href="https://cloudflare.com">cloudflare app</a> by <a href="https://toepoke.co.uk">toepoke.co.uk</a>
+			</p>
+			<div class="app-clear"></div>
+		</div>
+	</div>
+</div>
+
+	<p>
+some text
+		</p>
+	<input type="password" />
+	
+	<script type="text/javascript" src="deps/js-sha1.js"></script>
+	<script type="text/javascript" src="modal.js"></script> 
+	<script type="text/javascript" src="pappwords.js"></script> 
+
+	<script>
+		var pwd = "password";
+		Checker.checkForPawnage(pwd);
+
+	</script>
+</body>
+</html>

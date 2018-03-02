@@ -1,0 +1,120 @@
+.app-modal-container {
+  /* start hidden */
+  display: none;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 501;
+}
+.app-modal-container a:link, 
+.app-modal-container a:hover, 
+.app-modal-container a:visited, 
+.app-modal-container a:target {
+  color: #eee;
+  font-weight: bold;
+}
+.app-modal-bar {
+  margin: 0;
+  padding: 5px 10px 5px 10px;
+  line-height: 1;
+  background-color: #d13400;
+  border-radius: 5px;
+}
+
+  .app-modal {
+    box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.7);  
+
+    /* Vertically align on screen */
+    position: relative;
+    top: 40%;
+    transform: perspective(1px) translateY(-50%);
+
+    /* Horizontal align on screen */
+    width: 60%;
+    margin: auto;
+
+    /* design */
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #E53B05;
+    color: white;
+  }
+
+    .app-modal-header {
+    }
+      .app-modal-title h1 {
+        margin: 0;
+      }
+    .app-modal-closer {
+        font-weight: bold;
+        position: fixed;
+        right: 10px;
+        top: 10px;
+        background-color: #555;
+        padding: 5px;
+        border-radius: 5px;
+        opacity: 0.9;
+        cursor: hand;
+    }
+
+    .app-modal-closer a {
+      text-decoration: none;
+    }
+
+    .app-modal-warning {
+      float: left;
+      width: 10%;
+    }
+      .app-modal-icon {
+        font-size: 72pt;
+        /* rounded icon affect */
+        border: solid 1px #fff;
+        border-radius: 50%;
+        padding: 0 50% 0 50%;
+        color: #E53B05;
+        background-color: #fff;        
+      }
+
+    .app-modal-content-container {
+      min-height: 150px;
+    }
+    .app-modal-content {
+      margin-left: 20%;
+
+    }
+
+  .app-modal-footer {
+    font-size: small;
+  }
+  .app-modal-footer p {
+    margin:0;
+  }
+
+
+
+.app-modal-overlay {
+  /* start hidden */
+  display: none;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;  
+  background:#555;
+  opacity: 0.7;
+}
+
+
+.app-float-left  { float: left; }
+.app-float-right { float: right; }
+.app-clear       { clear: both; }
+.app-ib          { display: inline-block; }
+.app-hide        { display: none; }
+.app-show        { display: block; }
+
+
