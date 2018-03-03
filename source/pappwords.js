@@ -85,14 +85,14 @@ var Pappwords = {
 				continue;
 			}
 
-			PasswordChecker.checkForPawnage(password, function (isPwded, hits, prettyHits) {
+			PasswordChecker.checkForPawnage(password, function (data) {
 				numPasswordsChecked++;
-				if (isPwded) {
+				if (data.isPwned) {
 					numPasswordsPwnd++;
-					pwnedPasswords.push(password);
-					if (hits > highestHits) {
-						highestHits = hits;
-						highestPrettyHits = prettyHits;
+					pwnedPasswords.push(data.password);
+					if (data.hits > highestHits) {
+						highestHits = data.hits;
+						highestPrettyHits = data.prettyHits;
 					}
 				}
 

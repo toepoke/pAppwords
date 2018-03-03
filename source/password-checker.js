@@ -1,16 +1,23 @@
 'use strict'
 
+var PasswordData = {
+	url: "",
+	suffix: "",
+	prefix: "",
+	sha: "",
+	password: "",
+	checkComplete: null,
+
+	isPwned: false,
+	hits: 0,
+	prettyHits: ""
+}
+
 var PasswordChecker = {
 	
-	_sha1: "",
-	_prefix: "",
-	_suffix: "",
-	_hits: 0,
-	_prettyHits: "",
-	_isPwned: false,
 	_passwordCheckComplete: null,
 
-	queryApi: function (url, onOK) {
+	queryApi: function (url, data, onOK) {
 		var r = new XMLHttpRequest();
 		var me = this;
 		
@@ -19,26 +26,23 @@ var PasswordChecker = {
 		r.onreadystatechange = function () {
 			if (r.readyState != 4 || r.status != 200) 
 					return;
-			onOK(me, r);
+			onOK(data, r);
 		};
 
 		r.send();
 	}, // queryApi
 
 
-	parseResponse: function(ctx, response) {
+	parseResponse: function(data, response) {
 		var text = response.responseText;
-		var suffixAt = text.indexOf(ctx._suffix);
+		var suffixAt = text.indexOf(data.suffix);
 
 		if (suffixAt < 0) {
 			// no pawnage ... phew!
-			ctx._isPwned = false;
-			ctx._hits = 0;
-			ctx._prettyHits = "0";
-			if (ctx._passwordCheckComplete) {
-				ctx._passwordCheckComplete(ctx._isPwned, ctx._hits, ctx._prettyHits);
+			if (data.checkComplete) {
+				data.checkComplete(data);
 			}
-				return;
+			return;
 		}
 
 		// match found, they've been pwned ... now find how many times
@@ -47,12 +51,12 @@ var PasswordChecker = {
 		var pawnCountStr = text.substring(colonAt+1, newLine);
 
 		// and record the outcome
-		ctx._isPwned = true;
-		ctx._hits = parseInt(pawnCountStr);
-		ctx._prettyHits = ctx._hits.toLocaleString();
+		data.isPwned = true;
+		data.hits = parseInt(pawnCountStr);
+		data.prettyHits = data.hits.toLocaleString();
 		
-		if (ctx._passwordCheckComplete) {
-			ctx._passwordCheckComplete(ctx._isPwned, ctx._hits, ctx._prettyHits);
+		if (data.checkComplete) {
+			data.checkComplete(data);
 		}
 
 	}, // parseResponse
@@ -61,21 +65,26 @@ var PasswordChecker = {
 	checkForPawnage: function(password, onCheckComplete) {
 		var PWNED_CHECKER_URL = "https://api.pwnedpasswords.com/range/";
 		var url = "";
+		var sha = "";
+		var prefix = "";
+		var suffix = "";
+		var data = new Object();
 
-		this._sha1 = sha1(password);
-		this._passwordCheckComplete = onCheckComplete;
+		data.sha = sha1(password);
+		data.checkComplete = onCheckComplete;
+		data.password = password;
 
-		if (this._sha1 && this._sha1 !== "") {
+		if (data.sha && data.sha !== "") {
 			// Response is uppercase, so make matching easier later on ...
-			this._sha1 = this._sha1.toUpperCase();
+			data.sha = data.sha.toUpperCase();
 
 			// for the range query we only want the first 5 characters
-			this._prefix = this._sha1.substring(0, 5);
-			this._suffix = this._sha1.substring(5);
+			data.prefix = data.sha.substring(0, 5);
+			data.suffix = data.sha.substring(5);
 
-			url = PWNED_CHECKER_URL + this._prefix;
+			url = PWNED_CHECKER_URL + data.prefix;
 
-			this.queryApi(url, this.parseResponse);
+			this.queryApi(url, data, this.parseResponse);
 			return true;
 		}
 
