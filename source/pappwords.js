@@ -10,7 +10,6 @@ var PappwordsConfig = {
 
 var Pappwords = {
 	_activeForm: null,
-	_allowContinue: false,
 	_failurePercentage: 0.0,
 
 	/// Find all password type fields on the page
@@ -97,7 +96,7 @@ var Pappwords = {
 				var isFinalCheck = (numPasswordsChecked === numPasswordFields);
 				if (isFinalCheck) {
 					// final check has been done, so what's the result?
-					Pappwords._allowContinue = true;
+					var allowContinue = true;
 					// At least one password is pawned, but this isn't the end of the story.  Consider
 					//  - Login => 1 password
 					//  - Password change => 3 passwords (current, new and new confirm)
@@ -105,7 +104,7 @@ var Pappwords = {
 					// So we calculate the percentage of the passwords that have failed and go with that
 					Pappwords._failurePercentage = (numPasswordsPwnd / numPasswordFields) * 100;
 					if (Pappwords._failurePercentage >= PappwordsConfig.FAILURE_PERCENTAGE) {
-						Pappwords._allowContinue = false;
+						allowContinue = false;
 					}
 
 					// apply template changes
@@ -115,7 +114,7 @@ var Pappwords = {
 
 					PappwordsModal.openPwndDialog(template, function() {
 
-						if (Pappwords._allowContinue || !PappwordsConfig.PREVENT_SUBMIT) {
+						if (allowContinue || !PappwordsConfig.PREVENT_SUBMIT) {
 							// allow form submission to continue.
 							Pappwords._activeForm.submit();
 						}
