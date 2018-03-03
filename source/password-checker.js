@@ -8,6 +8,7 @@ var Checker = {
 	_hits: 0,
 	_prettyHits: "",
 	_isPwned: false,
+	_passwordCheckComplete: null,
 
 	queryApi: function (url, onOK) {
 		var r = new XMLHttpRequest();
@@ -32,7 +33,12 @@ var Checker = {
 		if (suffixAt < 0) {
 			// no pawnage ... phew!
 			ctx._isPwned = false;
-			return;
+			ctx._hits = 0;
+			ctx._prettyHits = "0";
+			if (ctx._passwordCheckComplete) {
+				ctx._passwordCheckComplete(ctx._isPwned, ctx._hits, ctx._prettyHits);
+			}
+				return;
 		}
 
 		// match found, they've been pwned ... now find how many times
@@ -45,16 +51,19 @@ var Checker = {
 		ctx._hits = parseInt(pawnCountStr);
 		ctx._prettyHits = ctx._hits.toLocaleString();
 		
-		console.info("isPwed:", ctx._isPwned, ctx._prettyHits);
-		
+		if (ctx._passwordCheckComplete) {
+			ctx._passwordCheckComplete(ctx._isPwned, ctx._hits, ctx._prettyHits);
+		}
+
 	}, // parseResponse
 
 
-	checkForPawnage: function(password) {
+	checkForPawnage: function(password, onCheckComplete) {
 		var PWNED_CHECKER_URL = "https://api.pwnedpasswords.com/range/";
 		var url = "";
 
 		this._sha1 = sha1(password);
+		this._passwordCheckComplete = onCheckComplete;
 
 		if (this._sha1 && this._sha1 !== "") {
 			// Response is uppercase, so make matching easier later on ...

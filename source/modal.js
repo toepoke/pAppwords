@@ -4,23 +4,31 @@ var _closeButton = null;
 var _okButton = null;
 var _modalHtml = null;
 var _placeholder = null;
+var _onClose = null;
 
 
 /// Closes the dialog and removes from the DOM to prevent issues on the website being injected.
-function close() {
+function closePwndDialog() {
   _modal.classList.add("fadeOut");  
   _overlay.classList.add("fadeOut");  
   document.body.removeChild(_placeholder);
   _placeholder = null;
+  if (this._onClose) {
+    this._onClose();
+  }
 } // close
 
 
 /// Shows the overlay and dialog
-function open() {
+function openPwndDialog(onCloseHandler) {
+  attachDialog();
   _overlay.classList.remove("app-hide");
   _modal.classList.remove("app-hide");
   _overlay.classList.add("animated", "fadeIn");
   _modal.classList.add("animated", "fadeIn");
+  if (onCloseHandler) {
+    this._onClose = onCloseHandler;
+  }
 } // open
 
 
@@ -36,11 +44,11 @@ function attachDialog() {
   _modal = document.querySelector(".app-modal-container");
   _closeButton = document.querySelector("a.app-modal-closer");
   _okButton = document.getElementById("app-modal-ok");
-  _closeButton.addEventListener("click", close);
-  _okButton.addEventListener("click", close);
+  _closeButton.addEventListener("click", closePwndDialog);
+  _okButton.addEventListener("click", closePwndDialog);
   document.addEventListener("keyup", function(e) {
     if (e.keyCode === 27) {
-      close();
+      closePwndDialog();
     }
   });
 
@@ -54,7 +62,6 @@ function loadModalDialog() {
   var me = this;
   if (me._modalHtml != null) {
     // already downloaded, so just re-attach
-    attachDialog();
     return;
   }
 
@@ -67,8 +74,6 @@ function loadModalDialog() {
     if (r.readyState != 4 || r.status != 200) 
         return;
     me._modalHtml = r.responseText;
-
-    me.attachDialog();      
   };
 
   r.send();
