@@ -20,8 +20,8 @@ var PappwordsModal = {
 
 
   /// Shows the overlay and dialog
-  openPwndDialog: function(onCloseHandler) {
-    this.attachDialog();
+  openPwndDialog: function(dialogContent, onCloseHandler) {
+    this.attachDialog(dialogContent);
     _overlay.classList.remove("app-hide");
     _modal.classList.remove("app-hide");
     _overlay.classList.add("animated", "fadeIn");
@@ -34,9 +34,13 @@ var PappwordsModal = {
 
   /// Attaches the loaded dialog code into the DOM ready for display.
   /// Wires up the various buttons and the escape key to close the dialog.
-  attachDialog: function() {
-    _placeholder = document.createElement("div")
-    _placeholder.innerHTML = this._modalHtml;
+  attachDialog: function(dialogContent) {
+    var template = this._modalHtml;
+
+    template = template.replace("{MODAL-CONTENT}", dialogContent);
+
+    _placeholder = document.createElement("div");
+    _placeholder.innerHTML = template;
 
     document.body.appendChild(_placeholder);
 

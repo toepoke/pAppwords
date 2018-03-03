@@ -1,7 +1,10 @@
 var PappwordsConfig = {
 	FAILURE_PERCENTAGE: 33,
 	PREVENT_SUBMIT: true,
-	CLEAR_PASSWORD_FIELDS: true
+	CLEAR_PASSWORD_FIELDS: true,
+	MESSAGE: 
+		"<p>This password has previously appeared in a data breach.</p>"
+		+ "<p>Please use a more secure alternative.</p>"
 };
 
 var Pappwords = {
@@ -104,7 +107,7 @@ var Pappwords = {
 						Pappwords._allowContinue = false;
 					}
 
-					PappwordsModal.openPwndDialog(function() {
+					PappwordsModal.openPwndDialog(PappwordsConfig.MESSAGE, function() {
 
 						if (Pappwords._allowContinue || !PappwordsConfig.PREVENT_SUBMIT) {
 							// allow form submission to continue.
