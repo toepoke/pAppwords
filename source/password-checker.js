@@ -1,6 +1,6 @@
 'use strict'
 
-var Checker = {
+var PasswordChecker = {
 	
 	_sha1: "",
 	_prefix: "",
