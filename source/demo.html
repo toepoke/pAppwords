@@ -42,8 +42,8 @@
 			<input id="username" type="text" value="me@toepoke.co.uk" />
 		</div>
 		<div class="input-field">
-			<label for="password">password</label>
-			<input id="password" type="password" value="asdfasdf" />
+			<label for="login-password">password</label>
+			<input id="login-password" type="password" value="asdfasdf" />
 		</div>
 		<div class="input-field">
 			<input type="submit" value="Save" class="float-right">
@@ -69,7 +69,27 @@
 		</div>
 	</form>
 	<div class="clear"></div>
-		
+
+	<form class="float-left" action="https://toepoke.co.uk" method="get">
+		<legend>Register</legend>
+		<div class="input-field">
+			<label for="email">e-mail</label>
+			<input id="email" type="text" value="me@toepoke.co.uk" />
+		</div>
+		<div class="input-field">
+			<label for="password">password</label>
+			<input id="password" type="password" value="asdfasdf" />
+		</div>
+		<div class="input-field">
+				<label for="password-confirm">confirm password</label>
+				<input id="password-confirm" type="password" value="asdfasdf" />
+			</div>
+			<div class="input-field">
+			<input type="submit" value="Save" class="float-right">
+		</div>
+	</form>
+
+
 	<script type="text/javascript" src="deps/js-sha1.js"></script>
 	<script type="text/javascript" src="password-checker.js"></script> 
 	<script type="text/javascript" src="pappwords.js"></script> 
