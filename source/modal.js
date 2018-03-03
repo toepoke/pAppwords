@@ -13,8 +13,8 @@ function closePwndDialog() {
   _overlay.classList.add("fadeOut");  
   document.body.removeChild(_placeholder);
   _placeholder = null;
-  if (this._onClose) {
-    this._onClose();
+  if (_onClose) {
+    _onClose();
   }
 } // close
 
@@ -27,7 +27,7 @@ function openPwndDialog(onCloseHandler) {
   _overlay.classList.add("animated", "fadeIn");
   _modal.classList.add("animated", "fadeIn");
   if (onCloseHandler) {
-    this._onClose = onCloseHandler;
+    _onClose = onCloseHandler;
   }
 } // open
 
