@@ -9,10 +9,12 @@ var PappwordsModal = {
 
   /// Closes the dialog and removes from the DOM to prevent issues on the website being injected.
   closePwndDialog: function() {
-    _modal.classList.add("fadeOut");  
-    _overlay.classList.add("fadeOut");  
-    document.body.removeChild(_placeholder);
-    _placeholder = null;
+    _modal.classList.add("animated", "fadeOut");  
+    _overlay.classList.add("animated", "fadeOut");  
+    setTimeout(function() {
+      document.body.removeChild(_placeholder);
+      _placeholder = null;
+    }, 800);
     if (_onClose) {
       _onClose();
     }
