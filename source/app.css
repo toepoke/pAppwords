@@ -7,6 +7,8 @@
 .app-modal-bar    { background-color: #000; }
 .app-modal-icon   { background-color: #d13400;  color: #fff;  }
 .app-modal-closer { background-color: #555;     color: #fff;  }
+.app-modal-ok     { background-color: #d13400;  color: #fff; }
+  
 
 /* fonts */
 .app-modal           { font-family: "Segoe UI","Calibri","Gill Sans MT","Tahoma","Arial","sans-serif" }
@@ -17,11 +19,10 @@
 .app-modal-icon      { font-size: 72pt;  font-weight: bold; }
 .app-modal-content   { font-size: 18pt;  }  
 .app-modal-footer    { font-size: 12pt; }
+.app-modal-ok        { font-size: 10pt; font-weight: bold; }
 
 
 .app-modal-container {
-  /* start hidden */
-  display: none;
 
   position: fixed;
   top: 0;
@@ -39,7 +40,7 @@
 }
 .app-modal-bar {
   margin: 0;
-  padding: 5px 10px 5px 10px;
+  padding: 10px;
   line-height: 1;
   border-radius: 5px;
 }
@@ -96,6 +97,16 @@
       margin-right: 5%;
     }
 
+  .app-modal-ok {
+    border: none;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    float: right;
+    padding: 5px 50px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }  
   .app-modal-footer p {
     margin:0;
   }
@@ -103,9 +114,6 @@
 
 
 .app-modal-overlay {
-  /* start hidden */
-  display: none;
-
   position: fixed;
   top: 0;
   left: 0;
@@ -122,5 +130,77 @@
 .app-ib          { display: inline-block; }
 .app-hide        { display: none; }
 .app-show        { display: block; }
+
+
+/* effects */
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.animated.infinite {
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+.animated.hinge {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
 
 

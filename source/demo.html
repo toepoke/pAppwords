@@ -3,6 +3,7 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="./app.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 	<style>
 		body { 
 			margin: 10%;
@@ -26,9 +27,9 @@
 </head>
 
 <body>
-<div class="app-modal-overlay"></div>
+<div class="app-modal-overlay animated fadeIn"></div>
 
-<div class="app-modal-container">
+<div class="app-modal-container animated">
 	<div class="app-modal">
 
 		<div class="app-modal-header">
@@ -52,15 +53,20 @@
 			</p>
 			</div>
 		</div>
-		<div class="clear"></div>
-		<div class="app-modal-footer app-modal-bar">
-			<p class="app-float-left app-inline">
-				Password check by <a href="https://haveibeenpwned.com">haveibeenpwned.com</a>
-			</p>
-			<p class="app-float-right app-inline">
-				<a href="https://cloudflare.com">app</a> by <a href="https://toepoke.co.uk">toepoke.co.uk</a>
-			</p>
+		<div class="app-clear"></div>
+		<div class="app-modal-footer">
+			<input id="app-modal-ok" type="button" value="Ok" class="app-modal-ok app-float-right">
 			<div class="app-clear"></div>
+
+			<div class="app-modal-bar">
+				<p class="app-float-left app-inline">
+					Password check by <a href="https://haveibeenpwned.com">haveibeenpwned.com</a>
+				</p>
+				<p class="app-float-right app-inline">
+					<a href="https://cloudflare.com">app</a> by <a href="https://toepoke.co.uk">toepoke.co.uk</a>
+				</p>
+				<div class="app-clear"></div>
+			</div>
 		</div>
 	</div>
 </div>
