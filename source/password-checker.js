@@ -26,7 +26,7 @@ var PasswordChecker = {
 	}, // queryApi
 
 
-	parseResponse(ctx, response) {
+	parseResponse: function(ctx, response) {
 		var text = response.responseText;
 		var suffixAt = text.indexOf(ctx._suffix);
 
