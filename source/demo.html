@@ -12,7 +12,11 @@
 			color: #fff;
 			font-size: 15pt;
 		}
-		input[type="text"] {
+		form legend {
+			text-align: center;
+			margin-bottom: 10px;
+		}
+		input {
 			font-size: 20pt;
 		}
 		label {
@@ -31,7 +35,7 @@
 
 <body>
 
-	<form class="float-left">
+	<form class="float-left" action="https://toepoke.co.uk" method="get">
 		<legend>Log-in</legend>
 		<div class="input-field">
 			<label for="username">e-mail</label>
@@ -39,23 +43,29 @@
 		</div>
 		<div class="input-field">
 			<label for="password">password</label>
-			<input id="password" type="text" value="" />
+			<input id="password" type="password" value="asdfasdf" />
+		</div>
+		<div class="input-field">
+			<input type="submit" value="Save" class="float-right">
 		</div>
 	</form>
 
-	<form class="float-right">
+	<form class="float-right" action="https://toepoke.co.uk" method="get">
 		<legend>Change password</legend>
 		<div class="input-field">
 			<label for="current-password">current password</label>
-			<input id="current-password" type="text" value="" />
+			<input id="current-password" type="password" value="asdfasdf" />
 		</div>
 		<div class="input-field">
 			<label for="new-password">new password</label>
-			<input id="new-password" type="text" value="" />
+			<input id="new-password" type="password" value="asdfasdf" />
 		</div>
 		<div class="input-field">
 			<label for="new-password-confirm">password confirm</label>
-			<input id="new-password-confirm" type="text" value="" />
+			<input id="new-password-confirm" type="password" value="asdfasdf" />
+		</div>
+		<div class="input-field">
+			<input type="submit" value="Save" class="float-right">
 		</div>
 	</form>
 	<div class="clear"></div>

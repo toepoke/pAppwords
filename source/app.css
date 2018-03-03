@@ -126,13 +126,10 @@
 .app-float-left  { float: left; }
 .app-float-right { float: right; }
 .app-clear       { clear: both; }
-.app-ib          { display: inline-block; }
 .app-hide        { display: none; }
-.app-show        { display: block; }
 
 
 /* effects */
-
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
