@@ -1,6 +1,6 @@
 var overlay = document.querySelector(".app-modal-overlay");
 var modal = document.querySelector(".app-modal-container");
-var closeButton = document.querySelector(".app-modal-closer a");
+var closeButton = document.querySelector("a.app-modal-closer");
 
 function close() {
   modal.classList.remove("app-show");  
