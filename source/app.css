@@ -1,3 +1,24 @@
+/* colours */
+.app-modal-overlay {
+  background: #000;
+  background: linear-gradient(90deg, rgba(0, 0, 0,1) 6.742313323572475%,rgba(209, 42, 61,1) 83.16983894582722%);
+}
+.app-modal        { background-color: #181c28;  color: #fff;  }
+.app-modal-bar    { background-color: #000; }
+.app-modal-icon   { background-color: #d13400;  color: #fff;  }
+.app-modal-closer { background-color: #555;     color: #fff;  }
+
+/* fonts */
+.app-modal           { font-family: "Segoe UI","Calibri","Gill Sans MT","Tahoma","Arial","sans-serif" }
+
+.app-modal-container { font-size: 12pt;  }
+.app-modal-title h1  { font-size: 30pt;  }
+.app-modal-closer    { font-size: 14pt;  }
+.app-modal-icon      { font-size: 72pt;  font-weight: bold; }
+.app-modal-content   { font-size: 18pt;  }  
+.app-modal-footer    { font-size: 12pt; }
+
+
 .app-modal-container {
   /* start hidden */
   display: none;
@@ -20,7 +41,6 @@
   margin: 0;
   padding: 5px 10px 5px 10px;
   line-height: 1;
-  background-color: #d13400;
   border-radius: 5px;
 }
 
@@ -36,11 +56,7 @@
     width: 60%;
     margin: auto;
 
-    /* design */
     padding: 20px;
-    font-family: 'Arial', sans-serif;
-    background-color: #E53B05;
-    color: white;
   }
 
     .app-modal-header {
@@ -51,44 +67,35 @@
     .app-modal-closer {
         font-weight: bold;
         position: fixed;
-        right: 10px;
-        top: 10px;
-        background-color: #555;
-        padding: 5px;
+        right: -40px;
+        top: -40px;
+        padding: 5px 10px;
         border-radius: 5px;
         opacity: 0.9;
-        cursor: hand;
-    }
-
-    .app-modal-closer a {
-      text-decoration: none;
-    }
+        text-decoration: none;
+      }
 
     .app-modal-warning {
       float: left;
       width: 10%;
     }
       .app-modal-icon {
-        font-size: 72pt;
         /* rounded icon affect */
-        border: solid 1px #fff;
         border-radius: 50%;
-        padding: 0 50% 0 50%;
-        color: #E53B05;
-        background-color: #fff;        
+        padding: 0 45% 0 45%;
+        display: inline-block;
+        line-height: 85px;
+        height: 100px;        
       }
 
     .app-modal-content-container {
       min-height: 150px;
     }
     .app-modal-content {
-      margin-left: 20%;
-
+      margin-left: 17%;
+      margin-right: 5%;
     }
 
-  .app-modal-footer {
-    font-size: small;
-  }
   .app-modal-footer p {
     margin:0;
   }
@@ -105,7 +112,6 @@
   width: 100%;
   height: 100%;
   z-index: 500;  
-  background:#555;
   opacity: 0.7;
 }
 
