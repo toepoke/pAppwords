@@ -4,7 +4,8 @@ var PappwordsConfig = {
 	CLEAR_PASSWORD_FIELDS: true,
 	MESSAGE: 
 		"<p>This password has previously appeared in a data breach.</p>"
-		+ "<p>Please use a more secure alternative.</p>"
+		+ "<p>It has appeared {PRETTY-COUNT} time(s).</p>"
+		+ "<p>Please use a more secure alternative.</p>",
 };
 
 var Pappwords = {
@@ -107,7 +108,12 @@ var Pappwords = {
 						Pappwords._allowContinue = false;
 					}
 
-					PappwordsModal.openPwndDialog(PappwordsConfig.MESSAGE, function() {
+					// apply template changes
+					var template = PappwordsConfig.MESSAGE;
+					template = template.replace("{COUNT}", hits);
+					template = template.replace("{PRETTY-COUNT}", prettyHits);
+
+					PappwordsModal.openPwndDialog(template, function() {
 
 						if (Pappwords._allowContinue || !PappwordsConfig.PREVENT_SUBMIT) {
 							// allow form submission to continue.
