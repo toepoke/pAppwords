@@ -67,6 +67,7 @@ var Pappwords = {
 	onSubmit: function(e) {
 		// find all password fields and see if they've been pawned
 		var passwordFields = e.currentTarget.querySelectorAll("input[type='password']");
+		var pwnedPasswords = [];
 		var numPasswordFields = passwordFields.length;
 		var numPasswordsPwnd = 0;
 		var numPasswordsChecked = 0;
@@ -88,15 +89,14 @@ var Pappwords = {
 				numPasswordsChecked++;
 				if (isPwded) {
 					numPasswordsPwnd++;
-					if (PappwordsConfig.CLEAR_PASSWORD_FIELDS) {
-						passwordField.value = "";
-					}
+					pwnedPasswords.push(password);
 				}
 
 				var isFinalCheck = (numPasswordsChecked === numPasswordFields);
 				if (isFinalCheck) {
 					// final check has been done, so what's the result?
-					var allowContinue = true;
+					var allowFormSubmission = true;
+					var showDialog = false;
 					// At least one password is pawned, but this isn't the end of the story.  Consider
 					//  - Login => 1 password
 					//  - Password change => 3 passwords (current, new and new confirm)
@@ -104,21 +104,35 @@ var Pappwords = {
 					// So we calculate the percentage of the passwords that have failed and go with that
 					Pappwords._failurePercentage = (numPasswordsPwnd / numPasswordFields) * 100;
 					if (Pappwords._failurePercentage >= PappwordsConfig.FAILURE_PERCENTAGE) {
-						allowContinue = false;
+						allowFormSubmission = false;
+						showDialog = true;
 					}
+					if (showDialog && PappwordsConfig.CLEAR_PASSWORD_FIELDS) {
+						// clear passwords
+						for (var i=0; i < pwnedPasswords.length; i++) {
+							var pwnedPassword = pwnedPasswords[i];
+							for (var j=0; j < passwordFields.length; j++) {
+								var passwordField = passwordFields[j];
+								if (passwordField.value === pwnedPassword) {
+									passwordField.value = "";
+								}
+							}
+						}
+					} // clear password fields
 
 					// apply template changes
 					var template = PappwordsConfig.MESSAGE;
 					template = template.replace("{COUNT}", hits);
 					template = template.replace("{PRETTY-COUNT}", prettyHits);
 
-					PappwordsModal.openPwndDialog(template, function() {
-
-						if (allowContinue || !PappwordsConfig.PREVENT_SUBMIT) {
-							// allow form submission to continue.
-							Pappwords._activeForm.submit();
-						}
-					});
+					if (showDialog) {
+						PappwordsModal.openPwndDialog(template, function() {
+							if (allowFormSubmission || !PappwordsConfig.PREVENT_SUBMIT) {
+								// allow form submission to continue.
+								Pappwords._activeForm.submit();
+							}
+						});
+					} // showDialog
 		
 				} // isFinalCheck
 		
