@@ -71,6 +71,8 @@ var Pappwords = {
 		var numPasswordFields = passwordFields.length;
 		var numPasswordsPwnd = 0;
 		var numPasswordsChecked = 0;
+		var highestHits = 0;
+		var highestPrettyHits = "";
 
 		Pappwords._activeForm = e.target;
 
@@ -84,12 +86,14 @@ var Pappwords = {
 			}
 
 			PasswordChecker.checkForPawnage(password, function (isPwded, hits, prettyHits) {
-				console.log(isPwded, hits, prettyHits);
-				
 				numPasswordsChecked++;
 				if (isPwded) {
 					numPasswordsPwnd++;
 					pwnedPasswords.push(password);
+					if (hits > highestHits) {
+						highestHits = hits;
+						highestPrettyHits = prettyHits;
+					}
 				}
 
 				var isFinalCheck = (numPasswordsChecked === numPasswordFields);
@@ -122,8 +126,8 @@ var Pappwords = {
 
 					// apply template changes
 					var template = PappwordsConfig.MESSAGE;
-					template = template.replace("{COUNT}", hits);
-					template = template.replace("{PRETTY-COUNT}", prettyHits);
+					template = template.replace("{COUNT}", highestHits);
+					template = template.replace("{PRETTY-COUNT}", highestPrettyHits);
 
 					if (showDialog) {
 						PappwordsModal.openPwndDialog(template, function() {
