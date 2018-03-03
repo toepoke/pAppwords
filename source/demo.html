@@ -3,6 +3,26 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="./app.css" />
+	<style>
+		body { 
+			margin: 10%;
+			font-family: Arial, Helvetica, sans-serif; 
+			background: linear-gradient(111.463deg, rgb(65, 65, 65) 1.84297%, rgb(0, 0, 0) 96.0597%);
+			color: #fff;
+			font-size: 30pt;
+		}
+		input[type="text"] {
+			font-size: 30pt;
+		}
+		label {
+			width: 200px;
+			display: inline-block;
+			text-align: right;
+		}
+		.input-field {
+			margin-bottom: 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -45,11 +65,16 @@
 	</div>
 </div>
 
-	<p>
-some text
-		</p>
-	<input type="password" />
-	
+	<form>
+		<div class="input-field">
+			<label for="username">e-mail</label>
+			<input id="username" type="text" value="me@toepoke.co.uk" />
+		</div>
+		<div class="input-field">
+			<label for="password">password</label>
+			<input id="password" type="text" value="💩💩💩💩💩💩" />
+		</div>
+	</form>
 	<script type="text/javascript" src="deps/js-sha1.js"></script>
 	<script type="text/javascript" src="modal.js"></script> 
 	<script type="text/javascript" src="pappwords.js"></script> 
