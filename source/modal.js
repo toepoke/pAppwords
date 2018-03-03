@@ -44,8 +44,6 @@ function attachDialog() {
     }
   });
 
-  this.open();
-
 } // attachDialog
 
 
