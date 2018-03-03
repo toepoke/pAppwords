@@ -75,7 +75,3 @@ var Checker = {
 
 }
 
-
-// https://api.pwnedpasswords.com/range/92429
-
-// 92429d82a41e930486c6de5ebda9602d55c39986
