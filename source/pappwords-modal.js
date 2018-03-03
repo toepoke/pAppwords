@@ -36,23 +36,25 @@ var PappwordsModal = {
   /// Wires up the various buttons and the escape key to close the dialog.
   attachDialog: function(dialogContent) {
     var template = this._modalHtml;
-
+    
     template = template.replace("{MODAL-CONTENT}", dialogContent);
-
+    
     _placeholder = document.createElement("div");
     _placeholder.innerHTML = template;
-
+    
     document.body.appendChild(_placeholder);
-
+    
     _overlay = document.querySelector(".app-modal-overlay");
     _modal = document.querySelector(".app-modal-container");
     _closeButton = document.querySelector("a.app-modal-closer");
     _okButton = document.getElementById("app-modal-ok");
     _closeButton.addEventListener("click", this.closePwndDialog);
     _okButton.addEventListener("click", this.closePwndDialog);
+
+    var me = this;
     document.addEventListener("keyup", function(e) {
       if (e.keyCode === 27) {
-        this.closePwndDialog();
+        me.closePwndDialog();
       }
     });
 
