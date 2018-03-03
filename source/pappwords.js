@@ -73,6 +73,11 @@ function onSubmit(e) {
 		var passwordField = passwordFields[pf];
 		var password = passwordField.value;
 
+		if (password.length == 0) {
+			// no point querying
+			continue;
+		}
+
 		Checker.checkForPawnage(password, function (isPwded, hits, prettyHits) {
 			console.log(isPwded, hits, prettyHits);
 			
