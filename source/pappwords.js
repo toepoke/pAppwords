@@ -70,6 +70,16 @@ var PappwordsConfig = {
 		failure = parseFloat(failure);
 
 		return failure;
+	},
+
+	showSettings: function() {
+		console.info("settings", {
+			message: this.getMessage(),
+			warnOnly: this.getWarnOnly(),
+			clearPasswords: this.getClearPasswords(),
+			failurePercentage: this.getFailurePercentage()
+		});
+
 	}
 
 };
@@ -219,6 +229,8 @@ var Pappwords = {
 	}, // onSubmit
 
 	onLoad: function() {
+		PappwordsConfig.showSettings();
+
 		var passwords = Pappwords.findPasswordFields();
 		var forms = Pappwords.findPasswordForms(passwords);
 
