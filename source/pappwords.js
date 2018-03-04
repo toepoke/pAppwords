@@ -38,7 +38,10 @@ var PappwordsConfig = {
 
 		if (preventSubmit == null)
 			preventSubmit = PappwordsConfig.PREVENT_SUBMIT_DEFAULT;
-		
+
+		// convert to boolean
+		preventSubmit = (preventSubmit.toString() == "true");
+
 		return preventSubmit;
 	},
 
@@ -48,6 +51,9 @@ var PappwordsConfig = {
 		if (clearPwds == null)
 			clearPwds = PappwordsConfig.CLEAR_PASSWORD_FIELDS_DEFAULT;
 		
+		// convert to boolean
+		clearPwds = (clearPwds.toString() == "true");
+
 		return clearPwds;
 	},
 
