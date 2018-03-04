@@ -48,13 +48,12 @@
     box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.7);  
 
     /* Vertically align on screen */
-    position: relative;
-    top: 40%;
-    transform: perspective(1px) translateY(-50%);
+    position: fixed;
+    top: 10%;
 
     /* Horizontal align on screen */
     width: 60%;
-    margin: auto;
+    margin-left: 20%;
 
     padding: 20px;
   }
@@ -67,8 +66,8 @@
     .app-modal-closer {
         font-weight: bold;
         position: fixed;
-        right: -40px;
-        top: -40px;
+        right: 10%;
+        top: 5%;
         padding: 5px 10px;
         border-radius: 5px;
         opacity: 0.9;
