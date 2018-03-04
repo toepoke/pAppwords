@@ -51,6 +51,10 @@ Tested working with:
 * IE Edge
 * IE 10 and 11 (via emulation)
 
+# Demo
+
+[Demo](https://toepoke.github.io/pAppwords/docs/demo.html).
+
 # Credits
 
 * [https://github.com/emn178/js-sha1](https://github.com/emn178/js-sha1)
