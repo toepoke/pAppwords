@@ -200,3 +200,28 @@
 
 
 
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 480px) {
+
+  .app-modal {
+    width: 90%;
+    top: 40%;
+  }
+    .app-modal-closer {
+      top: 23px;
+      right: 26px;
+      font-size: 25pt;
+    }
+
+    .app-modal-content {
+      font-size: 25pt;
+    }  
+    .app-modal-ok {
+      font-size: 25pt;
+    }    
+  .app-modal-footer {
+    font-size: 21pt;
+  }    
+
+}
