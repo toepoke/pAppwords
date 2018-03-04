@@ -12,7 +12,7 @@
     element = INSTALL.createElement(options.location, element)
 
     element.setAttribute("MESSAGE", options.message);
-    element.setAttribute("PREVENT_SUBMIT", options.preventSubmit);
+    element.setAttribute("WARN_ONLY", options.warnOnly);
     element.setAttribute("FAILURE_PERCENTAGE", options.failurePercentage);
     element.setAttribute("CLEAR_PASSWORD_FIELDS", options.clearPasswords);
 

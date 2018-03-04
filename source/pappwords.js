@@ -1,6 +1,6 @@
 var PappwordsConfig = {
 	FAILURE_PERCENTAGE_DEFAULT: 33,
-	PREVENT_SUBMIT_DEFAULT: true,
+	WARN_ONLY_DEFAULT: true,
 	CLEAR_PASSWORD_FIELDS_DEFAULT: true,
 	MESSAGE_DEFAULT: 
 		"<p>This password has previously appeared in a data breach.</p>"
@@ -33,16 +33,16 @@ var PappwordsConfig = {
 		return msg;
 	},
 
-	getPreventSubmit: function() {
-		var preventSubmit = this.getOption("prevent_submit");
+	getWarnOnly: function() {
+		var warnOnly = this.getOption("warn_only");
 
-		if (preventSubmit == null)
-			preventSubmit = PappwordsConfig.PREVENT_SUBMIT_DEFAULT;
+		if (warnOnly == null)
+			warnOnly = PappwordsConfig.WARN_ONLY_DEFAULT;
 
 		// convert to boolean
-		preventSubmit = (preventSubmit.toString() == "true");
+		warnOnly = (warnOnly.toString() == "true");
 
-		return preventSubmit;
+		return warnOnly;
 	},
 
 	getClearPasswords: function() {
@@ -194,8 +194,8 @@ var Pappwords = {
 
 					if (showDialog) {
 						PappwordsModal.openPwndDialog(template, function() {
-							var preventSubmit = PappwordsConfig.getPreventSubmit();
-							if (allowFormSubmission || !preventSubmit) {
+							var warnOnly = PappwordsConfig.getWarnOnly();
+							if (allowFormSubmission || !warnOnly) {
 								// allow form submission to continue.
 								Pappwords._activeForm.submit();
 							}

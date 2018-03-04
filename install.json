@@ -47,17 +47,19 @@
         "maxLength": 200,
         "default": "<p>This password has previously appeared in a data breach.</p><p>It has appeared {PRETTY-COUNT} time(s).</p><p>Please use a more secure alternative.</p>"
       },
-      "preventSubmit": {
+      "warnOnly": {
         "order": 2,
         "title": "Warn only",
+        "type": "boolean",
         "description": "Only warn the user if their password is breached (i.e. don't stop them using the password).",
-        "type": "boolean"
+        "default": "true"
       },
       "clearPasswords": {
         "order": 3,
         "title": "Clear password fields",
+        "type": "boolean",
         "description": "If a password is breached, the password field is cleared, forcing the user to type a new, more secure password.",
-        "type": "boolean"
+        "default": "true"
       },
       "failurePercentage": {
         "order": 4,
