@@ -1,26 +1,44 @@
 var PappwordsConfig = {
-	FAILURE_PERCENTAGE: 33,
-	PREVENT_SUBMIT: true,
-	CLEAR_PASSWORD_FIELDS: true,
-	MESSAGE: 
+	FAILURE_PERCENTAGE_DEFAULT: 33,
+	PREVENT_SUBMIT_DEFAULT: true,
+	CLEAR_PASSWORD_FIELDS_DEFAULT: true,
+	MESSAGE_DEFAULT: 
 		"<p>This password has previously appeared in a data breach.</p>"
 		+ "<p>It has appeared {PRETTY-COUNT} time(s).</p>"
 		+ "<p>Please use a more secure alternative.</p>",
 
-	applyCloudFlareConfig: function() {
+	getCloudFlareOptions: function() {
 		var cf = document.getElementsByTagName("cloudflare-app");
 
-		// If cloudflare isn't detected, just leave the defaults as it
-		if (!cf) return;
-		if (cf.length == 0) return;
+		if (!cf) return null;
+		if (cf.length == 0) return null;
 
 		var options = cf[0];
 
-		PappwordsConfig.MESSAGE = options.getAttribute("message");
-		PappwordsConfig.PREVENT_SUBMIT = options.getAttribute("preventSubmit");
-		PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.getAttribute("clearPasswords");
-		PappwordsConfig.FAILURE_PERCENTAGE = options.getAttribute("failrePercentage");
-	}
+		return options;
+	},
+
+	getOption: function(attrName) {
+		var cf = this.getCloudFlareOptions();
+		
+		return cf.getAttribute(attrName);
+	},
+
+	getMessage: function() {
+		var msg = this.getOption("message");
+
+		if (msg == null)
+			msg = PappwordsConfig.MESSAGE_DEFAULT;
+		
+		return msg;
+	},
+
+	// applyCloudFlareConfig: function() {
+	// 	PappwordsConfig.MESSAGE = options.getAttribute("message");
+	// 	PappwordsConfig.PREVENT_SUBMIT = options.getAttribute("preventSubmit");
+	// 	PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.getAttribute("clearPasswords");
+	// 	PappwordsConfig.FAILURE_PERCENTAGE = options.getAttribute("failrePercentage");
+	// }
 };
 
 var Pappwords = {
@@ -140,7 +158,8 @@ var Pappwords = {
 					} // clear password fields
 
 					// apply template changes
-					var template = PappwordsConfig.MESSAGE;
+					// var template = PappwordsConfig.MESSAGE;
+					var template = PappwordsConfig.getMessage();
 					template = template.replace("{COUNT}", highestHits);
 					template = template.replace("{PRETTY-COUNT}", highestPrettyHits);
 
