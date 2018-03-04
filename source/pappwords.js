@@ -6,6 +6,21 @@ var PappwordsConfig = {
 		"<p>This password has previously appeared in a data breach.</p>"
 		+ "<p>It has appeared {PRETTY-COUNT} time(s).</p>"
 		+ "<p>Please use a more secure alternative.</p>",
+
+	applyCloudFlareConfig: function() {
+		var cf = document.getElementsByTagName("cloudflare-app");
+
+		// If cloudflare isn't detected, just leave the defaults as it
+		if (!cf) return;
+		if (cf.length == 0) return;
+
+		var options = cf[0];
+
+		PappwordsConfig.MESSAGE = options.message;
+		PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
+		PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.clearPasswords;
+		PappwordsConfig.FAILURE_PERCENTAGE = options.failrePercentage;
+	}
 };
 
 var Pappwords = {
@@ -151,6 +166,8 @@ var Pappwords = {
 	}, // onSubmit
 
 	onLoad: function() {
+		PappwordsConfig.applyCloudFlareConfig();
+
 		var passwords = Pappwords.findPasswordFields();
 		var forms = Pappwords.findPasswordForms(passwords);
 
