@@ -207,8 +207,8 @@ var Pappwords = {
 					if (showDialog) {
 						PappwordsModal.openPwndDialog(template, function() {
 							var warnOnly = PappwordsConfig.getWarnOnly();
-							if (!warnOnly) {
-								// allow form submission to continue.
+							if (warnOnly) {
+								// warnOnly =? allow form submission to continue.
 								Pappwords._activeForm.submit();
 							}
 						});

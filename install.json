@@ -64,7 +64,7 @@
       "failurePercentage": {
         "order": 4,
         "title": "Aggression",
-        "description": "How aggressive Pappwords should be when deciding to prevent the user continuing with a breached password.",
+        "description": "How aggressive Pappwords should be when assessing passwords in a form (e.g. if 100% then all 3 passwords in a form would need to be breached before showing the breached dialog).",
         "type": "number",
         "format": "slider",
         "default": 33,
