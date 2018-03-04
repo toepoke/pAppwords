@@ -7,7 +7,7 @@ Pappwords piggy backs on the fantastic work of [@troyhunt](https://twitter.com/t
 
 Pappwords is a [cloudflare app](https://blog.cloudflare.com/cloudflare-apps-2/) you can install on your website and it will notify your users if the password they are using has been subject to a breach.
 
-![Screenshot of Pappwords telling a user the password they used has been involved in a breach.](./screenshot.png "Screenshot")
+![Screenshot of Pappwords telling a user the password they used has been involved in a breach.](./docs/screenshot.png "Screenshot")
 
 ## Why Pappwords?
 
