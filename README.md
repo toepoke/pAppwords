@@ -11,7 +11,7 @@ Pappwords is a [cloudflare app](https://blog.cloudflare.com/cloudflare-apps-2/) 
 
 ## Why Pappwords?
 
-It's a play on words of app, password and papp (if your password has been in a breach, it's a bit papp :smile:)
+It's a play on words of app, password and papp - *if your password has been in a breach, it's a bit papp :-)*
 
 ## How It Works
 
