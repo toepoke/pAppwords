@@ -9,7 +9,7 @@
   // updateElement runs every time the options are updated.
   // Most of your code will end up inside this function.
   function updateElement () {
-    element = INSTALL.createElement(options.location, element)
+    element = INSTALL.createElement("body", element)
 
     element.setAttribute("MESSAGE", options.message);
     element.setAttribute("WARN_ONLY", options.warnOnly);
