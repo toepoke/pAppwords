@@ -9,14 +9,16 @@
   // updateElement runs every time the options are updated.
   // Most of your code will end up inside this function.
   function updateElement () {
-    element = document.createElement('cloudflare-app');
+    element = document.getElementsByTagName("cloudflare-app");
+    if (element == null || element.length == 0) {
+      element = document.createElement('cloudflare-app');
+      document.body.appendChild(element);
+    }
 
     element.setAttribute("MESSAGE", options.message);
     element.setAttribute("WARN_ONLY", options.warnOnly);
     element.setAttribute("FAILURE_PERCENTAGE", options.failurePercentage);
     element.setAttribute("CLEAR_PASSWORD_FIELDS", options.clearPasswords);
-
-    document.body.appendChild(element);
 
     Pappwords.onLoad();
   }
