@@ -175,7 +175,6 @@ var Pappwords = {
 				var isFinalCheck = (numPasswordsChecked === numPasswordFields);
 				if (isFinalCheck) {
 					// final check has been done, so what's the result?
-					var allowFormSubmission = true;
 					var showDialog = false;
 					// At least one password is pawned, but this isn't the end of the story.  Consider
 					//  - Login => 1 password
@@ -184,7 +183,6 @@ var Pappwords = {
 					// So we calculate the percentage of the passwords that have failed and go with that
 					Pappwords._failurePercentage = (numPasswordsPwnd / numPasswordFields) * 100;
 					if (Pappwords._failurePercentage >= PappwordsConfig.getFailurePercentage()) {
-						allowFormSubmission = false;
 						showDialog = true;
 					}
 					if (showDialog && PappwordsConfig.getClearPasswords()) {
@@ -209,7 +207,7 @@ var Pappwords = {
 					if (showDialog) {
 						PappwordsModal.openPwndDialog(template, function() {
 							var warnOnly = PappwordsConfig.getWarnOnly();
-							if (allowFormSubmission || !warnOnly) {
+							if (!warnOnly) {
 								// allow form submission to continue.
 								Pappwords._activeForm.submit();
 							}
