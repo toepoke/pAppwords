@@ -52,14 +52,14 @@
         "title": "Warn only",
         "type": "boolean",
         "description": "Only warn the user if their password is breached (i.e. don't stop them using the password).",
-        "default": "false"
+        "default": false
       },
       "clearPasswords": {
         "order": 3,
         "title": "Clear password fields",
         "type": "boolean",
         "description": "If a password is breached, the password field is cleared, forcing the user to type a new, more secure password.",
-        "default": "true"
+        "default": true
       },
       "failurePercentage": {
         "order": 4,
