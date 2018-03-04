@@ -12,7 +12,8 @@ var PappwordsModal = {
     _modal.classList.add("animated", "fadeOut");  
     _overlay.classList.add("animated", "fadeOut");  
     setTimeout(function() {
-      document.body.removeChild(_placeholder);
+      if (_placeholder != null)
+        document.body.removeChild(_placeholder);
       _placeholder = null;
     }, 800);
     if (_onClose) {
