@@ -11,9 +11,12 @@
 			color: #fff;
 			font-size: 15pt;
 		}
+		form {
+			margin-bottom: 75px;
+		}
 		form legend {
-			text-align: center;
 			margin-bottom: 10px;
+			border-bottom: solid 1px #fff;
 		}
 		input {
 			font-size: 20pt;
@@ -101,7 +104,7 @@
 				var inCloudflare = false;
 				var cf = document.getElementsByTagName("cloudflare-app");
 
-				if (cf != null) {
+				if (cf.length > 0) {
 					inCloudflare = true;
 				}
 

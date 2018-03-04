@@ -1,6 +1,6 @@
 var PappwordsConfig = {
 	FAILURE_PERCENTAGE_DEFAULT: 33,
-	WARN_ONLY_DEFAULT: true,
+	WARN_ONLY_DEFAULT: false,
 	CLEAR_PASSWORD_FIELDS_DEFAULT: true,
 	MESSAGE_DEFAULT: 
 		"<p>This password has previously appeared in a data breach.</p>"
@@ -20,6 +20,9 @@ var PappwordsConfig = {
 
 	getOption: function(attrName) {
 		var cf = this.getCloudFlareOptions();
+		if (cf == null)
+			return null;
+
 		var value = cf.getAttribute(attrName);
 
 		if (value == "null")
