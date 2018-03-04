@@ -12,10 +12,15 @@
     element = INSTALL.createElement(options.location, element)
 
     Pappwords.onLoad();
-    PappwordsConfig.MESSAGE = options.message;
-    PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
-    PappwordsConfig.FAILURE_PERCENTAGE = options.failurePercentage;
-    PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.clearPasswords;
+    // PappwordsConfig.MESSAGE = options.message;
+    // PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
+    // PappwordsConfig.FAILURE_PERCENTAGE = options.failurePercentage;
+    // PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.clearPasswords;
+
+    element.setAttribute("MESSAGE", options.message);
+    element.setAttribute("PREVENT_SUBMIT", options.preventSubmit);
+    element.setAttribute("FAILURE_PERCENTAGE", options.failurePercentage);
+    element.setAttribute("CLEAR_PASSWORD_FIELDS", options.clearPasswords);
 
     // Set the app attribute to your app's dash-delimited alias.
 
@@ -28,6 +33,11 @@
     setOptions: function setOptions (nextOptions) {
       options = nextOptions
 
+      PappwordsConfig.MESSAGE = options.message;
+      PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
+      PappwordsConfig.FAILURE_PERCENTAGE = options.failurePercentage;
+      PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.clearPasswords;
+  
       updateElement()
     }
   }
