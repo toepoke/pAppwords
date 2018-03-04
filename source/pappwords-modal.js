@@ -37,7 +37,7 @@ var PappwordsModal = {
   /// Attaches the loaded dialog code into the DOM ready for display.
   /// Wires up the various buttons and the escape key to close the dialog.
   attachDialog: function(dialogContent) {
-    var template = this._modalHtml;
+    var template = this.getModalDialog();
     
     template = template.replace("{MODAL-CONTENT}", dialogContent);
     
@@ -66,8 +66,8 @@ var PappwordsModal = {
   /// Loads the dialog HTML from the external file.
   /// Once loaded it adds into memory ready to be attached to the DOM.
   /// Only loads the file once per page load no matter how many times the dialog is open/closed.
-  loadModalDialog: function() {
-    this._modalHtml = 
+  getModalDialog: function() {
+    var html =  
       '<div class="app-modal-overlay app-hide"></div>' + 
       '<div class="app-modal-container app-hide">' + 
         '<div class="app-modal">' + 
@@ -102,12 +102,9 @@ var PappwordsModal = {
         '</div>' + 
       '</div>'
     ;
-  }, // loadModalDialog
+
+    return html;
+  }, // getModalDialog
 
 } // PappwordsModal
-
-/// Wait for the injected website page to load, then inject our code.
-// document.addEventListener("DOMContentLoaded", function() {
-//   PappwordsModal.loadModalDialog();
-// });
 

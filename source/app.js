@@ -12,7 +12,6 @@
     element = INSTALL.createElement(options.location, element)
 
     Pappwords.onLoad();
-    PappwordsModal.loadModalDialog();
     PappwordsConfig.MESSAGE = options.messave;
     PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
     PappwordsConfig.FAILURE_PERCENTAGE = options.failurePercentage;
