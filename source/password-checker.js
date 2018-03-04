@@ -1,5 +1,9 @@
 'use strict'
 
+///
+/// PasswordData: 
+/// Used for passing the data around through the callback hell!
+/// 
 var PasswordData = {
 	url: "",
 	suffix: "",
@@ -11,15 +15,21 @@ var PasswordData = {
 	isPwned: false,
 	hits: 0,
 	prettyHits: ""
-}
+};
 
+
+///
+/// PasswordChecker: 
+/// Performs the check against the haveibeenpwned API.
+/// 
 var PasswordChecker = {
 	
 	_passwordCheckComplete: null,
 
+	
+	/// Hit the API
 	queryApi: function (url, data, onOK) {
 		var r = new XMLHttpRequest();
-		var me = this;
 		
 		r.open("GET", url, true/*async*/);
 		
@@ -33,6 +43,7 @@ var PasswordChecker = {
 	}, // queryApi
 
 
+	/// Delimits the API response and establishes if the password has been in a breach
 	parseResponse: function(data, response) {
 		var text = response.responseText;
 		var suffixAt = text.indexOf(data.suffix);
@@ -62,6 +73,7 @@ var PasswordChecker = {
 	}, // parseResponse
 
 
+	/// kicks off checking for a breached password.
 	checkForPawnage: function(password, onCheckComplete) {
 		var PWNED_CHECKER_URL = "https://api.pwnedpasswords.com/range/";
 		var url = "";
@@ -91,5 +103,5 @@ var PasswordChecker = {
 		return false;
 	} // checkForPawnage
 
-}
+} // PasswordChecker
 

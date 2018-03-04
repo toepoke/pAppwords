@@ -1,246 +1,260 @@
+///
+/// PappwordsConfig:
+/// Handles getting configuration properties.
+/// Intention is that people can use Pappwords outside Cloudflare app if they wish.
+/// This class provides facilities to the use the defaults if we're outside Cloudflare.
+/// 
+
 var PappwordsConfig = {
-	FAILURE_PERCENTAGE_DEFAULT: 33,
-	WARN_ONLY_DEFAULT: false,
-	CLEAR_PASSWORD_FIELDS_DEFAULT: true,
-	MESSAGE_DEFAULT: 
-		"<p>This password has previously appeared in a data breach.</p>"
-		+ "<p>It has appeared {PRETTY-COUNT} time(s).</p>"
-		+ "<p>Please use a more secure alternative.</p>",
+  FAILURE_PERCENTAGE_DEFAULT: 33,
+  WARN_ONLY_DEFAULT: false,
+  CLEAR_PASSWORD_FIELDS_DEFAULT: true,
+  MESSAGE_DEFAULT:
+		'<p>This password has previously appeared in a data breach.</p>' +
+		'<p>It has appeared {PRETTY-COUNT} time(s).</p>' +
+		'<p>Please use a more secure alternative.</p>',
 
-	getCloudFlareOptions: function() {
-		var cf = document.getElementsByTagName("cloudflare-app");
+	/// Finds the Cloudflare element with the settings on the page
+  getCloudFlareOptions: function () {
+    var cf = document.getElementsByTagName('cloudflare-app')
 
-		if (!cf) return null;
-		if (cf.length == 0) return null;
+    if (!cf) return null
+    if (cf.length == 0) return null
 
-		var options = cf[0];
+    var options = cf[0]
 
-		return options;
-	},
+    return options
+  },
 
-	getOption: function(attrName) {
-		var cf = this.getCloudFlareOptions();
-		if (cf == null)
-			return null;
+	/// Helper method to get an option.
+	/// If we aren't runnning Cloudflare, this will return null.
+  getOption: function (attrName) {
+    var cf = this.getCloudFlareOptions()
+    if (cf == null) { return null }
 
-		var value = cf.getAttribute(attrName);
+    var value = cf.getAttribute(attrName)
 
-		if (value == "null")
-			value = null;
+    if (value == 'null') { value = null }
 
-		return value;
-	},
+    return value
+  },
 
-	getMessage: function() {
-		var msg = this.getOption("message");
+	/// Get the "message" option (via Cloudflare setting or default)
+  getMessage: function () {
+    var msg = this.getOption('message')
 
-		if (msg == null)
-			msg = PappwordsConfig.MESSAGE_DEFAULT;
-		
-		return msg;
-	},
+    if (msg == null) { msg = PappwordsConfig.MESSAGE_DEFAULT }
 
-	getWarnOnly: function() {
-		var warnOnly = this.getOption("warn_only");
+    return msg
+  },
 
-		if (warnOnly == null)
-			warnOnly = PappwordsConfig.WARN_ONLY_DEFAULT;
+	/// Get the "warnOnly" option (via Cloudflare setting or default)
+  getWarnOnly: function () {
+    var warnOnly = this.getOption('warn_only')
+
+    if (warnOnly == null) { warnOnly = PappwordsConfig.WARN_ONLY_DEFAULT }
 
 		// convert to boolean
-		warnOnly = (warnOnly.toString() == "true");
+    warnOnly = (warnOnly.toString() == 'true')
 
-		return warnOnly;
-	},
+    return warnOnly
+  },
 
-	getClearPasswords: function() {
-		var clearPwds = this.getOption("clear_password_fields");
+	/// Get the "clearPasswords" option (via Cloudflare setting or default)
+  getClearPasswords: function () {
+    var clearPwds = this.getOption('clear_password_fields')
 
-		if (clearPwds == null)
-			clearPwds = PappwordsConfig.CLEAR_PASSWORD_FIELDS_DEFAULT;
-		
+    if (clearPwds == null) { clearPwds = PappwordsConfig.CLEAR_PASSWORD_FIELDS_DEFAULT }
+
 		// convert to boolean
-		clearPwds = (clearPwds.toString() == "true");
+    clearPwds = (clearPwds.toString() == 'true')
 
-		return clearPwds;
-	},
+    return clearPwds
+  },
 
-	getFailurePercentage: function() {
-		var failure = this.getOption("failure_percentage");
+	/// Get the "failurePercentage" option (via Cloudflare setting or default)
+  getFailurePercentage: function () {
+    var failure = this.getOption('failure_percentage')
 
-		if (failure == null)
-			failure = PappwordsConfig.FAILURE_PERCENTAGE_DEFAULT;
-		
-		failure = parseFloat(failure);
+    if (failure == null) { failure = PappwordsConfig.FAILURE_PERCENTAGE_DEFAULT }
 
-		return failure;
-	},
+    failure = parseFloat(failure)
 
-	showSettings: function() {
-		console.info("settings", {
-			warnOnly: this.getWarnOnly(),
-			clearPasswords: this.getClearPasswords(),
-			failurePercentage: this.getFailurePercentage(),
-			message: this.getMessage()
-		});
+    return failure
+  },
 
-	}
+	/// Helper method that puts the settings (Cloudflare or defaults) into the console.
+	/// Makes debugging easier.
+  showSettings: function () {
+    console.info('settings', {
+      warnOnly: this.getWarnOnly(),
+      clearPasswords: this.getClearPasswords(),
+      failurePercentage: this.getFailurePercentage(),
+      message: this.getMessage()
+    })
+  }
 
-};
+} // PappwordsConfig
 
+/// 
+/// Pappwords:
+/// Class that handles the interaction between the website form and the pawned api.
+/// In essence we inject ourselves into the form submission process so we can perform
+/// the password check and show the dialog if required.
+///
 var Pappwords = {
-	_activeForm: null,
+  _activeForm: null,
 
 	/// Find all password type fields on the page
-	findPasswordFields: function() { 
+  findPasswordFields: function () {
 		// If querySelectorAll is supported, just use that!
-		if (document.querySelectorAll)
-			return document.querySelectorAll("input[type='password']"); 
+    if (document.querySelectorAll) { return document.querySelectorAll("input[type='password']") }
 
 		// If not, use Robusto's solution
-		var ary = []; 
-		var inputs = document.getElementsByTagName("input"); 
-		for (var i=0; i<inputs.length; i++) { 
-			if (inputs[i].type.toLowerCase() === "password") { 
-				ary.push(inputs[i]); 
-			} 
-		} 
-		return ary; 
-	}, // findPasswordFields
-
+    var ary = []
+    var inputs = document.getElementsByTagName('input')
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].type.toLowerCase() === 'password') {
+        ary.push(inputs[i])
+      }
+    }
+    return ary
+  }, // findPasswordFields
 
 	/// For a given set of password fields, find all the [unique] forms they are part of
-	findPasswordForms: function(passwords) {
-		var forms = [];
+  findPasswordForms: function (passwords) {
+    var forms = []
 
-		for (var p in passwords) {
-			var element = passwords[p];
-			
+    for (var p in passwords) {
+      var element = passwords[p]
+
 			// Find the form the password is part of
-			while (element.parentElement != null && element.tagName.toLowerCase() !== "form") {
-				element = element.parentElement;
-			}
+      while (element.parentElement != null && element.tagName.toLowerCase() !== 'form') {
+        element = element.parentElement
+      }
 
 			// We're only interested in the password is actually part of a form
-			if (element && element.tagName && element.tagName.toLowerCase() === "form") {
-				var add = true;
+      if (element && element.tagName && element.tagName.toLowerCase() === 'form') {
+        var add = true
 
 				// Ensure it's a distinct list of forms
-				for (var f in forms) {
-					var form = forms[f];
-					if (form == element) {
-						add = false;
-					}
-				}
-				if (add) {
-					forms.push(element);
-				}
-			}
-		
-		}
+        for (var f in forms) {
+          var form = forms[f]
+          if (form == element) {
+            add = false
+          }
+        }
+        if (add) {
+          forms.push(element)
+        }
+      }
+    } // findPasswordForms
 
-		return forms;
-	}, // findPasswordForms
+    return forms
+  }, // findPasswordForms
 
-
-	onSubmit: function(e) {
-
+	/// Handler for the injected form submit
+  onSubmit: function (e) {
 		// find all password fields and see if they've been pawned
-		var passwordFields = e.currentTarget.querySelectorAll("input[type='password']");
-		var pwnedPasswords = [];
-		var numPasswordFields = passwordFields.length;
-		var numPasswordsPwnd = 0;
-		var numPasswordsChecked = 0;
-		var highestHits = 0;
-		var highestPrettyHits = "";
+    var passwordFields = e.currentTarget.querySelectorAll("input[type='password']")
+    var pwnedPasswords = []
+    var numPasswordFields = passwordFields.length
+    var numPasswordsPwnd = 0
+    var numPasswordsChecked = 0
+    var highestHits = 0
+    var highestPrettyHits = ''
 
-		Pappwords._activeForm = e.target;
+    Pappwords._activeForm = e.target
 
-		for (var pf=0; pf < passwordFields.length; pf++) {
-			var passwordField = passwordFields[pf];
-			var password = passwordField.value;
+		/// Loop over each password in the form so we can perform a breach check
+    for (var pf = 0; pf < passwordFields.length; pf++) {
+      var passwordField = passwordFields[pf]
+      var password = passwordField.value
 
-			if (password.length == 0) {
-				// no point querying
-				continue;
-			}
+      if (password.length == 0) {
+				// no point querying as there are no password fields filled in
+        continue
+      }
 
-			PasswordChecker.checkForPawnage(password, function (data) {
-				numPasswordsChecked++;
-				if (data.isPwned) {
-					numPasswordsPwnd++;
-					pwnedPasswords.push(data.password);
-					if (data.hits > highestHits) {
-						highestHits = data.hits;
-						highestPrettyHits = data.prettyHits;
-					}
-				}
+			// Check if the password has been subject to a breach
+      PasswordChecker.checkForPawnage(password, function (data) {
+        numPasswordsChecked++
+        if (data.isPwned) {
+          numPasswordsPwnd++
+          pwnedPasswords.push(data.password)
+          if (data.hits > highestHits) {
+            highestHits = data.hits
+            highestPrettyHits = data.prettyHits
+          }
+        }
 
-				var isFinalCheck = (numPasswordsChecked === numPasswordFields);
-				if (isFinalCheck) {
+				// If there are several passwords to check (e.g. it's a change password form)
+				// we only want to show the dialog once, so we wait for the last one before deciding what to do
+        var isFinalCheck = (numPasswordsChecked === numPasswordFields)
+        if (isFinalCheck) {
 					// final check has been done, so what's the result?
-					var showDialog = false;
-					// At least one password is pawned, but this isn't the end of the story.  Consider
+          var showDialog = false
+					// We may be checking 1 or several passwords.  Consider:
 					//  - Login => 1 password
 					//  - Password change => 3 passwords (current, new and new confirm)
 					//  - SPA => could have loads!
 					// So we calculate the percentage of the passwords that have failed and go with that
-					var failurePercentage = (numPasswordsPwnd / numPasswordFields) * 100;
-					if (failurePercentage >= PappwordsConfig.getFailurePercentage()) {
-						showDialog = true;
-					}
-					if (showDialog && PappwordsConfig.getClearPasswords()) {
-						// clear passwords
-						for (var i=0; i < pwnedPasswords.length; i++) {
-							var pwnedPassword = pwnedPasswords[i];
-							for (var j=0; j < passwordFields.length; j++) {
-								var passwordField = passwordFields[j];
-								if (passwordField.value === pwnedPassword) {
-									passwordField.value = "";
-								}
-							}
-						}
-					} // clear password fields
+          var failurePercentage = (numPasswordsPwnd / numPasswordFields) * 100
+          if (failurePercentage >= PappwordsConfig.getFailurePercentage()) {
+						// we're over the "aggression" setting, so we'll show the user the dialog
+            showDialog = true
+          }
+          if (showDialog && PappwordsConfig.getClearPasswords()) {
+						// Clearing breached passwords is on, so clear out the effected passwords
+            for (var i = 0; i < pwnedPasswords.length; i++) {
+              var pwnedPassword = pwnedPasswords[i]
+              for (var j = 0; j < passwordFields.length; j++) {
+                var passwordField = passwordFields[j]
+                if (passwordField.value === pwnedPassword) {
+                  passwordField.value = ''
+                }
+              }
+            }
+          } // clear password fields
 
-					// apply template changes
-					// var template = PappwordsConfig.MESSAGE;
-					var template = PappwordsConfig.getMessage();
-					template = template.replace("{COUNT}", highestHits);
-					template = template.replace("{PRETTY-COUNT}", highestPrettyHits);
+          if (showDialog) {
+						// apply template changes
+            var template = PappwordsConfig.getMessage()
+            template = template.replace('{COUNT}', highestHits)
+            template = template.replace('{PRETTY-COUNT}', highestPrettyHits)
 
-					if (showDialog) {
-						PappwordsModal.openPwndDialog(template, function() {
-							var warnOnly = PappwordsConfig.getWarnOnly();
-							if (warnOnly) {
-								// warnOnly =? allow form submission to continue.
-								Pappwords._activeForm.submit();
-							}
-						});
-					} // showDialog
-		
-				} // isFinalCheck
-		
-			});
-				
-		} // for each password field
+            PappwordsModal.openPwndDialog(template, function () {
+              var warnOnly = PappwordsConfig.getWarnOnly()
+              if (warnOnly) {
+								// warnOnly => allow form submission to continue.
+                Pappwords._activeForm.submit()
+              }
+            })
+          } // showDialog
+        } // isFinalCheck
+      }) // checkForPawnage
+    } // for each password field
 
-		// Stop form submission for now, we'll allow it to continue later if the test is passed
-		e.preventDefault();
-		return false;
+		// Stop form submission for now, we'll allow it to continue later if the password isn't breached
+		// (or warnOnly mode is on)
+    e.preventDefault()
+    return false
+  }, // onSubmit
 
-	}, // onSubmit
+	/// Fires on page load so we can find any forms with passwords on them
+  onLoad: function () {
+		// Show the adopted settings (easier for debugging)
+    PappwordsConfig.showSettings()
 
-	onLoad: function() {
-		PappwordsConfig.showSettings();
+    var passwords = Pappwords.findPasswordFields()
+    var forms = Pappwords.findPasswordForms(passwords)
 
-		var passwords = Pappwords.findPasswordFields();
-		var forms = Pappwords.findPasswordForms(passwords);
-
-		for (var f in forms) {
-			var form = forms[f];
+    for (var f in forms) {
+      var form = forms[f]
 
 			// attach to the form submissions
-			form.addEventListener("submit", Pappwords.onSubmit);
-		}
-	}
-}	// Pappwords
+      form.addEventListener('submit', Pappwords.onSubmit)
+    } // foreach form
+  } // onLoad
 
+}	// Pappwords
