@@ -4,7 +4,6 @@ var PappwordsModal = {
   _closeButton: null,
   _okButton: null,
   _modalHtml: null,
-  _placeholder: null,
   _onClose: null,
 
   /// Closes the dialog and removes from the DOM to prevent issues on the website being injected.
@@ -12,9 +11,9 @@ var PappwordsModal = {
     _modal.classList.add("animated", "fadeOut");  
     _overlay.classList.add("animated", "fadeOut");  
     setTimeout(function() {
-      if (_placeholder != null)
-        document.body.removeChild(_placeholder);
-      _placeholder = null;
+      var placeholder = document.querySelector(".pappwords-dialog");
+      if (placeholder != null)
+        document.body.removeChild(placeholder);
     }, 800);
     if (_onClose) {
       _onClose();
@@ -42,10 +41,10 @@ var PappwordsModal = {
     
     template = template.replace("{MODAL-CONTENT}", dialogContent);
     
-    _placeholder = document.createElement("div");
-    _placeholder.innerHTML = template;
-    
-    document.body.appendChild(_placeholder);
+    var placeholder = document.createElement("div");
+    placeholder.classList.add("pappwords-dialog");
+    placeholder.innerHTML = template;
+    document.body.appendChild(placeholder);
     
     _overlay = document.querySelector(".app-modal-overlay");
     _modal = document.querySelector(".app-modal-container");
