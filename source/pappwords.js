@@ -89,7 +89,6 @@ var PappwordsConfig = {
 
 var Pappwords = {
 	_activeForm: null,
-	_failurePercentage: 0.0,
 
 	/// Find all password type fields on the page
 	findPasswordFields: function() { 
@@ -144,6 +143,7 @@ var Pappwords = {
 
 
 	onSubmit: function(e) {
+
 		// find all password fields and see if they've been pawned
 		var passwordFields = e.currentTarget.querySelectorAll("input[type='password']");
 		var pwnedPasswords = [];
@@ -184,8 +184,8 @@ var Pappwords = {
 					//  - Password change => 3 passwords (current, new and new confirm)
 					//  - SPA => could have loads!
 					// So we calculate the percentage of the passwords that have failed and go with that
-					Pappwords._failurePercentage = (numPasswordsPwnd / numPasswordFields) * 100;
-					if (Pappwords._failurePercentage >= PappwordsConfig.getFailurePercentage()) {
+					var failurePercentage = (numPasswordsPwnd / numPasswordFields) * 100;
+					if (failurePercentage >= PappwordsConfig.getFailurePercentage()) {
 						showDialog = true;
 					}
 					if (showDialog && PappwordsConfig.getClearPasswords()) {
