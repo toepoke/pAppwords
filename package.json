@@ -1,7 +1,7 @@
 {
-  "name": "@cloudflare-apps/example",
+  "name": "@cloudflare-apps/pappwords",
   "version": "0.0.0",
-  "description": "",
+  "description": "Notify your users their passwords have been subject to a breach.",
   "main": "app.js",
   "scripts": {
     "lint": "standard --fix ./source/**/*.js || true"
@@ -9,14 +9,14 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloudflare-apps/example-app.git"
+    "url": "git+https://github.com/toepoke/pAppwords.git"
   },
-  "author": "Cloudflare Inc.",
+  "author": "toepoke",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cloudflare-apps/example-app/issues"
+    "url": "https://github.com/toepoke/pAppwords/issues"
   },
-  "homepage": "https://github.com/cloudflare-apps/example-app#readme",
+  "homepage": "https://toepoke.github.io/pAppwords/",
   "dependencies": {},
   "devDependencies": {
     "standard": "^9.0.2"
