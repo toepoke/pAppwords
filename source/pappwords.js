@@ -33,12 +33,35 @@ var PappwordsConfig = {
 		return msg;
 	},
 
-	// applyCloudFlareConfig: function() {
-	// 	PappwordsConfig.MESSAGE = options.getAttribute("message");
-	// 	PappwordsConfig.PREVENT_SUBMIT = options.getAttribute("preventSubmit");
-	// 	PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.getAttribute("clearPasswords");
-	// 	PappwordsConfig.FAILURE_PERCENTAGE = options.getAttribute("failrePercentage");
-	// }
+	getPreventSubmit: function() {
+		var preventSubmit = this.getOption("preventSubmit");
+
+		if (preventSubmit == null)
+			preventSubmit = PappwordsConfig.PREVENT_SUBMIT_DEFAULT;
+		
+		return preventSubmit;
+	},
+
+	getClearPasswords: function() {
+		var clearPwds = this.getOption("clearPasswords");
+
+		if (clearPwds == null)
+			clearPwds = PappwordsConfig.CLEAR_PASSWORD_FIELDS_DEFAULT;
+		
+		return clearPwds;
+	},
+
+	getFailurePercentage: function() {
+		var failure = this.getOption("failurePercentage");
+
+		if (failure == null)
+			failure = PappwordsConfig.FAILURE_PERCENTAGE_DEFAULT;
+		
+		failure = parseFloat(failure);
+		
+		return failure;
+	}
+
 };
 
 var Pappwords = {
@@ -140,11 +163,11 @@ var Pappwords = {
 					//  - SPA => could have loads!
 					// So we calculate the percentage of the passwords that have failed and go with that
 					Pappwords._failurePercentage = (numPasswordsPwnd / numPasswordFields) * 100;
-					if (Pappwords._failurePercentage >= PappwordsConfig.FAILURE_PERCENTAGE) {
+					if (Pappwords._failurePercentage >= PappwordsConfig.getFailurePercentage()) {
 						allowFormSubmission = false;
 						showDialog = true;
 					}
-					if (showDialog && PappwordsConfig.CLEAR_PASSWORD_FIELDS) {
+					if (showDialog && PappwordsConfig.getClearPasswords()) {
 						// clear passwords
 						for (var i=0; i < pwnedPasswords.length; i++) {
 							var pwnedPassword = pwnedPasswords[i];
@@ -165,7 +188,8 @@ var Pappwords = {
 
 					if (showDialog) {
 						PappwordsModal.openPwndDialog(template, function() {
-							if (allowFormSubmission || !PappwordsConfig.PREVENT_SUBMIT) {
+							var preventSubmit = PappwordsConfig.getPreventSubmit();
+							if (allowFormSubmission || !preventSubmit) {
 								// allow form submission to continue.
 								Pappwords._activeForm.submit();
 							}

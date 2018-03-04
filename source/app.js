@@ -11,34 +11,18 @@
   function updateElement () {
     element = INSTALL.createElement(options.location, element)
 
-    // PappwordsConfig.MESSAGE = options.message;
-    // PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
-    // PappwordsConfig.FAILURE_PERCENTAGE = options.failurePercentage;
-    // PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.clearPasswords;
-
     element.setAttribute("MESSAGE", options.message);
     element.setAttribute("PREVENT_SUBMIT", options.preventSubmit);
     element.setAttribute("FAILURE_PERCENTAGE", options.failurePercentage);
     element.setAttribute("CLEAR_PASSWORD_FIELDS", options.clearPasswords);
 
-    // PappwordsConfig.applyCloudFlareConfig();
     Pappwords.onLoad();
-
-    // Set the app attribute to your app's dash-delimited alias.
-
-    // element.setAttribute('app', 'example')
-    // element.innerHTML = options.message
   }
 
   // INSTALL_SCOPE is an object that is used to handle option changes without refreshing the page.
   window.INSTALL_SCOPE = {
     setOptions: function setOptions (nextOptions) {
       options = nextOptions
-
-      // PappwordsConfig.MESSAGE = options.message;
-      // PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
-      // PappwordsConfig.FAILURE_PERCENTAGE = options.failurePercentage;
-      // PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.clearPasswords;
   
       updateElement()
     }
