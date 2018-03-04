@@ -20,6 +20,10 @@
       },
       {
         "type": "script",
+        "src": "./source/pappwords-config.js"
+      },
+      {
+        "type": "script",
         "src": "./source/pappwords.js"
       },
       {
