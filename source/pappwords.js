@@ -34,7 +34,7 @@ var PappwordsConfig = {
 	},
 
 	getPreventSubmit: function() {
-		var preventSubmit = this.getOption("preventSubmit");
+		var preventSubmit = this.getOption("prevent_submit");
 
 		if (preventSubmit == null)
 			preventSubmit = PappwordsConfig.PREVENT_SUBMIT_DEFAULT;
@@ -43,7 +43,7 @@ var PappwordsConfig = {
 	},
 
 	getClearPasswords: function() {
-		var clearPwds = this.getOption("clearPasswords");
+		var clearPwds = this.getOption("clear_password_fields");
 
 		if (clearPwds == null)
 			clearPwds = PappwordsConfig.CLEAR_PASSWORD_FIELDS_DEFAULT;
@@ -52,13 +52,13 @@ var PappwordsConfig = {
 	},
 
 	getFailurePercentage: function() {
-		var failure = this.getOption("failurePercentage");
+		var failure = this.getOption("failure_percentage");
 
 		if (failure == null)
 			failure = PappwordsConfig.FAILURE_PERCENTAGE_DEFAULT;
 		
 		failure = parseFloat(failure);
-		
+
 		return failure;
 	}
 
