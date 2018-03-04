@@ -35,8 +35,8 @@ The above means we can use Pappwords on all pages with passwords without being c
 
 ## Options
 
-- Clear password fields (boolean) - If a password is subject to a breach the password field will be cleared, forcing the user to enter a another password.  Defaults to true (password fields are cleared).
-- Prevent submit (boolean) - If a password is subject to a breach the form will not be submitted.
+- Clear password fields (boolean) - If a password is subject to a breach the password field will be cleared, forcing the user to enter a another password.  Defaults to true.
+- Warn only (boolean) - If true, the end-user is told their password has been subject to a breach, but the form will still submit.  Default is false.
 - Failure Percentage (decimal) - See above.  Defaults to 33%.
 - Message (string).  The message the user sees in the breached dialog.  Defaults to the text in the above screenshot.
 
