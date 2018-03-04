@@ -16,10 +16,10 @@ var PappwordsConfig = {
 
 		var options = cf[0];
 
-		PappwordsConfig.MESSAGE = options.message;
-		PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
-		PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.clearPasswords;
-		PappwordsConfig.FAILURE_PERCENTAGE = options.failrePercentage;
+		PappwordsConfig.MESSAGE = options.getAttribute("message");
+		PappwordsConfig.PREVENT_SUBMIT = options.getAttribute("preventSubmit");
+		PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.getAttribute("clearPasswords");
+		PappwordsConfig.FAILURE_PERCENTAGE = options.getAttribute("failrePercentage");
 	}
 };
 
@@ -166,8 +166,6 @@ var Pappwords = {
 	}, // onSubmit
 
 	onLoad: function() {
-		PappwordsConfig.applyCloudFlareConfig();
-
 		var passwords = Pappwords.findPasswordFields();
 		var forms = Pappwords.findPasswordForms(passwords);
 
