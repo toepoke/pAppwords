@@ -20,8 +20,12 @@ var PappwordsConfig = {
 
 	getOption: function(attrName) {
 		var cf = this.getCloudFlareOptions();
-		
-		return cf.getAttribute(attrName);
+		var value = cf.getAttribute(attrName);
+
+		if (value == "null")
+			value = null;
+
+		return value;
 	},
 
 	getMessage: function() {
