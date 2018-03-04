@@ -52,7 +52,7 @@
         "title": "Warn only",
         "type": "boolean",
         "description": "Only warn the user if their password is breached (i.e. don't stop them using the password).",
-        "default": "true"
+        "default": "false"
       },
       "clearPasswords": {
         "order": 3,
