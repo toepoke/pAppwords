@@ -67,31 +67,47 @@ var PappwordsModal = {
   /// Once loaded it adds into memory ready to be attached to the DOM.
   /// Only loads the file once per page load no matter how many times the dialog is open/closed.
   loadModalDialog: function() {
-    var me = this;
-    if (me._modalHtml != null) {
-      // already downloaded, so just re-attach
-      return;
-    }
-
-    var r = new XMLHttpRequest();
-    var url = "./modal.html";
-    
-    r.open("GET", url, true/*async*/);
-    
-    r.onreadystatechange = function () {
-      if (r.readyState != 4 || r.status != 200) 
-          return;
-      me._modalHtml = r.responseText;
-    };
-
-    r.send();
-
+    this._modalHtml = 
+      '<div class="app-modal-overlay app-hide"></div>' + 
+      '<div class="app-modal-container app-hide">' + 
+        '<div class="app-modal">' + 
+          '<div class="app-modal-header">' + 
+            '<a class="app-modal-closer" href="#">X</a>' + 
+            '<div class="app-modal-title app-modal-bar">' + 
+              '<h1>Pawned Password</h1>' + 
+            '</div>' + 
+          '</div>' + 
+          '<div class="app-modal-content-container">' + 
+            '<div class="app-modal-warning">' + 
+              '<span class="app-modal-icon">!</span>' + 
+            '</div>' + 
+            '<div class="app-modal-content">' + 
+              '{MODAL-CONTENT}' + 
+            '</div>' + 
+          '</div>' + 
+          '<div class="app-clear"></div>' + 
+          '<div class="app-modal-footer">' + 
+            '<input id="app-modal-ok" type="button" value="Ok" class="app-modal-ok app-float-right">' + 
+            '<div class="app-clear"></div>' + 
+            '<div class="app-modal-bar">' + 
+              '<p class="app-float-left app-inline">' + 
+                'Password check by <a href="https://haveibeenpwned.com">haveibeenpwned.com</a>' + 
+              '</p>' + 
+              '<p class="app-float-right app-inline">' + 
+                '<a href="https://cloudflare.com">app</a> by <a href="https://toepoke.co.uk">toepoke.co.uk</a>' + 
+              '</p>' + 
+              '<div class="app-clear"></div>' + 
+            '</div>' + 
+          '</div>' + 
+        '</div>' + 
+      '</div>'
+    ;
   }, // loadModalDialog
 
 } // PappwordsModal
 
 /// Wait for the injected website page to load, then inject our code.
-document.addEventListener("DOMContentLoaded", function() {
-  PappwordsModal.loadModalDialog();
-});
+// document.addEventListener("DOMContentLoaded", function() {
+//   PappwordsModal.loadModalDialog();
+// });
 
