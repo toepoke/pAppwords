@@ -37,6 +37,17 @@
   },
   "options": {
     "properties": {
+      "location": {
+        "title": "Message Location",
+        "description": "Where should the message appear?",
+        "order": 0,
+        "type": "object",
+        "format": "element",
+        "default": {
+          "selector": "body",
+          "method": "prepend"
+        }
+      },
       "message": {
         "order": 1,
         "title": "Breached password message",
