@@ -13,6 +13,9 @@
     if (element == null || element.length == 0) {
       element = document.createElement('cloudflare-app');
       document.body.appendChild(element);
+    } else {
+      // getElementsByTagName returns a collection
+      element = element[0];
     }
 
     element.setAttribute("MESSAGE", options.message);
