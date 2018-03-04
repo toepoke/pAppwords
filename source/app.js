@@ -11,9 +11,15 @@
   function updateElement () {
     element = INSTALL.createElement(options.location, element)
 
+    PappwordsConfig.MESSAGE = options.messave;
+    PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
+    PappwordsConfig.FAILURE_PERCENTAGE = options.failurePercentage;
+    PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.clearPasswords;
+
     // Set the app attribute to your app's dash-delimited alias.
-    element.setAttribute('app', 'example')
-    element.innerHTML = options.message
+
+    // element.setAttribute('app', 'example')
+    // element.innerHTML = options.message
   }
 
   // INSTALL_SCOPE is an object that is used to handle option changes without refreshing the page.
