@@ -74,10 +74,10 @@ var PappwordsConfig = {
 
 	showSettings: function() {
 		console.info("settings", {
-			message: this.getMessage(),
 			warnOnly: this.getWarnOnly(),
 			clearPasswords: this.getClearPasswords(),
-			failurePercentage: this.getFailurePercentage()
+			failurePercentage: this.getFailurePercentage(),
+			message: this.getMessage()
 		});
 
 	}
