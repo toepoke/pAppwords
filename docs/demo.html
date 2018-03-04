@@ -94,6 +94,23 @@
 	<script type="text/javascript" src="../source/password-checker.js"></script> 
 	<script type="text/javascript" src="../source/pappwords.js"></script> 
 	<script type="text/javascript" src="../source/pappwords-modal.js"></script> 
+	<script type="text/javascript">
+/// Wait for the injected website page to load, then inject our code.
+		document.addEventListener("DOMContentLoaded", function() {
+			setTimeout(function() {
+				var inCloudflare = false;
+				var cf = document.getElementsByTagName("cloudflare-app");
+
+				if (cf != null) {
+					inCloudflare = true;
+				}
+
+				if (!inCloudflare) {
+					Pappwords.onLoad();
+				}
+			}, 1000);
+		});
+	</script>
 </body>
 </html>
 
