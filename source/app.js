@@ -21,7 +21,7 @@
     element.setAttribute("FAILURE_PERCENTAGE", options.failurePercentage);
     element.setAttribute("CLEAR_PASSWORD_FIELDS", options.clearPasswords);
 
-    PappwordsConfig.applyCloudFlareConfig();
+    // PappwordsConfig.applyCloudFlareConfig();
     Pappwords.onLoad();
 
     // Set the app attribute to your app's dash-delimited alias.
