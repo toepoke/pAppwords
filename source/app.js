@@ -12,7 +12,7 @@
     element = INSTALL.createElement(options.location, element)
 
     Pappwords.onLoad();
-    PappwordsConfig.MESSAGE = options.messave;
+    PappwordsConfig.MESSAGE = options.message;
     PappwordsConfig.PREVENT_SUBMIT = options.preventSubmit;
     PappwordsConfig.FAILURE_PERCENTAGE = options.failurePercentage;
     PappwordsConfig.CLEAR_PASSWORD_FIELDS = options.clearPasswords;
