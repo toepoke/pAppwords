@@ -7,13 +7,37 @@
 
 var PappwordsConfig = {
 	DEBUG: false,
-  FAILURE_PERCENTAGE_DEFAULT: 33,
-  WARN_ONLY_DEFAULT: false,
-  CLEAR_PASSWORD_FIELDS_DEFAULT: true,
+
+	/// Specifies how agressive the check should be.  If we imagine a password change form
+	/// we have the existing password and two new password fields.  It's more likely the current
+	/// password is in a breach (this may be why someone is changing their password!).  
+	/// So you may not want to show the report the problem unless the new password and new password
+	/// confirm fields are in a breach.
+	/// Pappwords can't know which password is which so it uses a failure percentage to determine 
+	/// what to report.  So at 33% (the default) we'd only report if 2 or more are in a breach.
+	/// If you'd prefer to always report, set this to 100.
+	FAILURE_PERCENTAGE_DEFAULT: 33,
+	
+	/// If true the dialog will be shown, but the form will be allowed to submit
+	/// If false the dialog will be shown, but the form will not submit
+	WARN_ONLY_DEFAULT: false,
+	
+	/// If true the password fields which are in a breach they are cleared forcing the user
+	/// to enter a different password.
+	CLEAR_PASSWORD_FIELDS_DEFAULT: true,
+
+	/// If true the dialog will be shown (subject to the above).
+	/// If false the dialog is not shown (and you want to add JavaScript to report the issue yourself)
+	SHOW_DIALOG: false,
+
+	/// Message to appear in the dialog
   MESSAGE_DEFAULT:
 		'<p>This password has previously appeared in a data breach.</p>' +
 		'<p>It has appeared {PRETTY-COUNT} time(s).</p>' +
 		'<p>Please use a more secure alternative.</p>',
+
+	/// onComplete will be called if you wish to handle the reporting yourself
+	onComplete: null,
 
 	/// Finds the Cloudflare element with the settings on the page
   getCloudFlareOptions: function () {
