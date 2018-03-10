@@ -121,8 +121,8 @@ The above means we can use pAppwords on all pages with passwords without being c
 
 # Credits
 
+* [https://haveibeenpwned.com/API/v2#SearchingPwnedPasswordsByRange](https://haveibeenpwned.com/API/v2#SearchingPwnedPasswordsByRange)
 * [https://github.com/emn178/js-sha1](https://github.com/emn178/js-sha1)
-* [https://haveibeenpwned.com/API/v2#PwnedPasswords](https://haveibeenpwned.com/API/v2#PwnedPasswords)
 * [JavaScript minification](https://javascript-minifier.com/)
 * [CSS minification](https://cssminifier.com/)
 
