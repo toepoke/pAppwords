@@ -3,10 +3,10 @@
 
 As responsible website proprietors we want to help and/or educate our users to the risks of poor passwords.
 
-Pappwords is a [vanilla js](http://vanilla-js.com/) library you can install on your website and it will notify your users if the password they
+pAppwords is a [vanilla js](http://vanilla-js.com/) library you can install on your website and it will notify your users if the password they
 are using has been subject to a breach.
 
-![Screenshot of Pappwords telling a user the password they used has been involved in a breach.](./docs/screenshot.png "Screenshot")
+![Screenshot of pAppwords telling a user the password they used has been involved in a breach.](./docs/screenshot.png "Screenshot")
 
 The plug-in piggy backs on the fantastic work of [@troyhunt](https://twitter.com/troyhunt) and his [haveibeenpwned.com](https://haveibeenpwned.com/) website.
 
@@ -15,7 +15,7 @@ The plug-in piggy backs on the fantastic work of [@troyhunt](https://twitter.com
 1. The [Auto Demo](https://toepoke.github.io/pAppwords/docs/auto-demo.html) has zero configuration.
 2. The [Validation Demo](https://toepoke.github.io/pAppwords/docs/validation-demo.html) shows how you can configure how the plug-in behaves.
 
-## Why Pappwords?
+## Why pAppwords?
 
 It's a play on words of app, password and papp<sup>*</sup> - *if your password has been in a breach, it's a bit papp :-)*
 
@@ -91,7 +91,7 @@ Tested working with:
 
 ## How It Works
 
-Once installed, when a user submits a form with a password, Pappwords will query [Troy's API](https://haveibeenpwned.com/API/v2#PwnedPasswords) to see if the password has been subject to a breach.  If it has the above dialog is shown to the user.
+Once installed, when a user submits a form with a password, pAppwords will query [Troy's API](https://haveibeenpwned.com/API/v2#PwnedPasswords) to see if the password has been subject to a breach.  If it has the above dialog is shown to the user.
 
 If we think about typical password scenarios in a system, we have:
 
@@ -99,7 +99,7 @@ If we think about typical password scenarios in a system, we have:
 2. Register - 2 passwords (password and password confirmation)
 3. Change password - 3 passwords (current password, new password and new password confirm)
 
-When the user submits a form with a password field, Pappwords will run a check for pwnage against all password fields in the form.
+When the user submits a form with a password field, pAppwords will run a check for pwnage against all password fields in the form.
 
 It then looks at the percentage failure for the passwords in that form.  This is set to 33% by default.  So ...
 
@@ -107,7 +107,7 @@ It then looks at the percentage failure for the passwords in that form.  This is
 - If the user changes their password and 1 of the passwords is subject to a breach, the failure rate is 33% so the dialog is shown.
 - If however the user changes their passwords and none of the passwords are subject to a breach, the failure rate is zero and the dialog is not shown.
 
-The above means we can use Pappwords on all pages with passwords without being concerned about the scenario being run.
+The above means we can use pAppwords on all pages with passwords without being concerned about the scenario being run.
 
 # Credits
 
