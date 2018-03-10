@@ -10,6 +10,7 @@ var PasswordData = {
 	prefix: "",
 	sha: "",
 	password: "",
+	aside: null,
 	checkComplete: null,
 
 	isPwned: false,
@@ -23,9 +24,6 @@ var PasswordData = {
 /// Performs the check against the haveibeenpwned API.
 /// 
 var PasswordChecker = {
-
-	_passwordCheckComplete: null,
-
 
 	/// Hit the API
 	queryApi: function (url, data, onOK) {
@@ -48,12 +46,14 @@ var PasswordChecker = {
 		var text = response.responseText;
 		var suffixAt = text.indexOf(data.suffix);
 
+		// assume all is well to start with
+		data.isPwned = false;
+		data.hits = null;
+		data.prettyHits = null;
+
 		if (suffixAt < 0) {
 			// no pawnage ... phew!
-			if (data.checkComplete) {
-				data.checkComplete(data);
-			}
-			return;
+			return data;
 		}
 
 		// match found, they've been pwned ... now find how many times
@@ -66,15 +66,13 @@ var PasswordChecker = {
 		data.hits = parseInt(pawnCountStr);
 		data.prettyHits = data.hits.toLocaleString();
 
-		if (data.checkComplete) {
-			data.checkComplete(data);
-		}
-
+		return data;
 	}, // parseResponse
 
 
 	/// kicks off checking for a breached password.
-	checkForPawnage: function (password, onCheckComplete) {
+	checkForPawnage: function (password, aside, onCheckComplete) {
+
 		var PWNED_CHECKER_URL = "https://api.pwnedpasswords.com/range/";
 		var url = "";
 		var sha = "";
@@ -85,6 +83,7 @@ var PasswordChecker = {
 		data.sha = sha1(password);
 		data.checkComplete = onCheckComplete;
 		data.password = password;
+		data.aside = aside;
 
 		if (data.sha && data.sha !== "") {
 			// Response is uppercase, so make matching easier later on ...
@@ -96,8 +95,13 @@ var PasswordChecker = {
 
 			url = PWNED_CHECKER_URL + data.prefix;
 
-			this.queryApi(url, data, this.parseResponse);
-			return true;
+			return this.queryApi(url, data, function(data, resp) {
+				var outcome = PasswordChecker.parseResponse(data, resp);
+
+				if (data.checkComplete) {
+					data.checkComplete(data);
+				}
+			});
 		}
 
 		return false;

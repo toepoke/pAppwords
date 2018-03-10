@@ -79,7 +79,7 @@ var Pappwords = {
 			}
 
 			// Check if the password has been subject to a breach
-			PasswordChecker.checkForPawnage(password, function (data) {
+			PasswordChecker.checkForPawnage(password, { field: passwordField }, function (data) {
 				numPasswordsChecked++
 				if (data.isPwned) {
 					numPasswordsPwnd++
