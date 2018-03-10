@@ -1,5 +1,5 @@
 
-# Pappwords
+# pAppwords
 
 As responsible website proprietors we want to help and/or educate our users to the risks of poor passwords.
 
