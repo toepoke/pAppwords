@@ -5,7 +5,8 @@ As responsible website proprietors we want to help and/or educate our users to t
 
 Pappwords piggy backs on the fantastic work of [@troyhunt](https://twitter.com/troyhunt) and his [haveibeenpwned.com](https://haveibeenpwned.com/) website.
 
-Pappwords is a [cloudflare app](https://blog.cloudflare.com/cloudflare-apps-2/) you can install on your website and it will notify your users if the password they are using has been subject to a breach.
+Pappwrds is a [vanilla js](http://vanilla-js.com/) library you can install on your website and it will notify your users if the password they
+are using has been subject to a breach.
 
 ![Screenshot of Pappwords telling a user the password they used has been involved in a breach.](./docs/screenshot.png "Screenshot")
 
@@ -14,6 +15,48 @@ Pappwords is a [cloudflare app](https://blog.cloudflare.com/cloudflare-apps-2/) 
 It's a play on words of app, password and papp<sup>*</sup> - *if your password has been in a breach, it's a bit papp :-)*
 
 <sup>*</sup> - **papp** *noun*, British, *informal* - rubbish.
+
+## Installation
+
+There are two ways the plug-in can be installed.
+
+### Zero Configuration
+
+Simple.  Just install the pAppwords dependencies:
+
+````html
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="pappwords-min.css" />
+    ...
+  </head>
+  <body>
+    ...
+    <script type="text/javascript" src="pappwords-min.js"></script>
+  </body>
+</html>
+````
+
+### Custom Configuration
+
+Installation of the plug-in dependencies is the same as above.  You only need to add your configuration:
+
+````javascript
+document.addEventListener("DOMContentLoaded", function() {
+			
+  Pappwords.onLoad({
+    message: "* Password has been breached {PRETTY-COUNT} times.",
+    failurePercentage: 100,
+    showDialog: false, 
+    onComplete: function(result) {
+      // Whatever you want to do :-)
+
+      // For the shape of "result", see https://github.com/toepoke/pAppwords/blob/master/source/password-checker.js#L7
+    }
+  });
+			
+});
+````
 
 ## How It Works
 
@@ -55,8 +98,8 @@ Tested working with:
 
 There's two demos:
 
-1. The [Dialog Demo](https://toepoke.github.io/pAppwords/docs/dialog-demo.html) involves no installation other than installing the library.
-2. The [Validation Demo](https://toepoke.github.io/pAppwords/docs/validation-demo.html) shows how you can add your own validation if you prefer.
+1. The [Auto Demo](https://toepoke.github.io/pAppwords/docs/auto-demo.html) has zero configuration.
+2. The [Validation Demo](https://toepoke.github.io/pAppwords/docs/validation-demo.html) shows how you can configure how the plug-in behaves.
 
 # Credits
 

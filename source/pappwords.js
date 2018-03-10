@@ -166,3 +166,8 @@ var Pappwords = {
 	} // onLoad
 
 }	// Pappwords
+
+/// Wait for the injected website page to load, then inject our code.
+document.addEventListener("DOMContentLoaded", function() {
+	Pappwords.onLoad();
+});

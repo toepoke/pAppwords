@@ -1,8 +1,6 @@
 ///
 /// PappwordsConfig:
 /// Handles getting configuration properties.
-/// Intention is that people can use Pappwords outside Cloudflare app if they wish.
-/// This class provides facilities to the use the defaults if we're outside Cloudflare.
 /// 
 
 var PappwordsConfig = {
@@ -39,78 +37,28 @@ var PappwordsConfig = {
 	/// onComplete will be called if you wish to handle the reporting yourself
 	onComplete: null,
 
-	/// Finds the Cloudflare element with the settings on the page
-  getCloudFlareOptions: function () {
-    var cf = document.getElementsByTagName('cloudflare-app')
-
-    if (!cf) return null
-    if (cf.length == 0) return null
-
-    var options = cf[0]
-
-    return options
-  },
-
-	/// Helper method to get an option.
-	/// If we aren't runnning Cloudflare, this will return null.
-  getOption: function (attrName) {
-    var cf = this.getCloudFlareOptions()
-    if (cf == null) { return null }
-
-    var value = cf.getAttribute(attrName)
-
-    if (value == 'null') { value = null }
-
-    return value
-  },
-
-	/// Get the "message" option (via Cloudflare setting or default)
+	/// Get the "message" option
   getMessage: function () {
-    var msg = this.getOption('message')
-
-    if (msg == null) { msg = PappwordsConfig.MESSAGE_DEFAULT }
-
-    return msg
+    return PappwordsConfig.MESSAGE_DEFAULT;
   },
 
-	/// Get the "warnOnly" option (via Cloudflare setting or default)
+	/// Get the "warnOnly" option
   getWarnOnly: function () {
-    var warnOnly = this.getOption('warn_only')
-
-    if (warnOnly == null) { warnOnly = PappwordsConfig.WARN_ONLY_DEFAULT }
-
-		// convert to boolean
-    warnOnly = (warnOnly.toString() == 'true')
-
-    return warnOnly
+    return PappwordsConfig.WARN_ONLY_DEFAULT;
   },
 
-	/// Get the "clearPasswords" option (via Cloudflare setting or default)
+	/// Get the "clearPasswords" option
   getClearPasswords: function () {
-    var clearPwds = this.getOption('clear_password_fields')
-
-    if (clearPwds == null) { clearPwds = PappwordsConfig.CLEAR_PASSWORD_FIELDS_DEFAULT }
-
-		// convert to boolean
-    clearPwds = (clearPwds.toString() == 'true')
-
-    return clearPwds
+    return PappwordsConfig.CLEAR_PASSWORD_FIELDS_DEFAULT;
   },
 
-	/// Get the "failurePercentage" option (via Cloudflare setting or default)
+	/// Get the "failurePercentage" option
   getFailurePercentage: function () {
-    var failure = this.getOption('failure_percentage')
-
-    if (failure == null) { failure = PappwordsConfig.FAILURE_PERCENTAGE_DEFAULT }
-
-    failure = parseFloat(failure)
-
-    return failure
+    return PappwordsConfig.FAILURE_PERCENTAGE_DEFAULT;
 	},
 
-	/// Whether the 
+	/// Get the "showDialog" option
 	getShowDialog: function() {
-		// Doesn't make sense for Cloudflare version
 		return this.SHOW_DIALOG;
 	},
 	
@@ -124,7 +72,7 @@ var PappwordsConfig = {
 		return template;
 	},
 
-	/// Helper method that puts the settings (Cloudflare or defaults) into the console.
+	/// Helper method that puts the settings into the console.
 	/// Makes debugging easier.
   showSettings: function () {
 		if (!this.DEBUG)
@@ -140,6 +88,10 @@ var PappwordsConfig = {
 
 	/// convenience function to handle user provided configuration changes
 	applyOverrides: function(config) {
+		if (!config) {
+			// no configuration (probably in auto-mode)
+			return;
+		}
 		this.MESSAGE_DEFAULT = config.message || this.MESSAGE_DEFAULT;
 		this.FAILURE_PERCENTAGE_DEFAULT = config.failurePercentage || this.FAILURE_PERCENTAGE_DEFAULT;
 		this.WARN_ONLY_DEFAULT = config.warnOnly || this.WARN_ONLY_DEFAULT;
