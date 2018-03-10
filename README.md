@@ -101,7 +101,7 @@ Tested working with:
 
 ## How It Works
 
-Once installed, when a user submits a form with a password, pAppwords will query [Troy's API](https://haveibeenpwned.com/API/v2#PwnedPasswords) to see if the password has been subject to a breach.  If it has the above dialog is shown to the user.
+Once installed, when a user submits a form with a password, pAppwords will query [Troy's API](https://haveibeenpwned.com/API/v2#SearchingPwnedPasswordsByRange) to see if the password has been subject to a breach.  If it has the above dialog is shown to the user.
 
 If we think about typical password scenarios in a system, we have:
 
