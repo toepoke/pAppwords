@@ -94,7 +94,7 @@ var PappwordsModal = {
 			'Password check by <a href="https://haveibeenpwned.com">haveibeenpwned.com</a>' +
 			'</p>' +
 			'<p class="app-float-right app-inline">' +
-			'<a href="https://cloudflare.com">app</a> by <a href="https://toepoke.co.uk">toepoke.co.uk</a>' +
+			'Build with <span class="app-modal-heart">&hearts;</span> by <a href="https://toepoke.co.uk">toepoke.co.uk</a>' +
 			'</p>' +
 			'<div class="app-clear"></div>' +
 			'</div>' +
