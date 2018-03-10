@@ -53,7 +53,10 @@ Tested working with:
 
 # Demo
 
-[Demo](https://toepoke.github.io/pAppwords/docs/demo.html).
+There's two demos:
+
+1. The [Dialog Demo](https://toepoke.github.io/pAppwords/docs/dialog-demo.html) involves no installation other than installing the library.
+2. The [Validation Demo](https://toepoke.github.io/pAppwords/docs/validation-demo.html) shows how you can add your own validation if you prefer.
 
 # Credits
 

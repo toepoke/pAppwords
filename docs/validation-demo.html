@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../source/app.css" />
+	<style>
+		body { 
+			margin: 5%;
+			font-family: Arial, Helvetica, sans-serif; 
+			background: linear-gradient(111.463deg, rgb(65, 65, 65) 1.84297%, rgb(0, 0, 0) 96.0597%);
+			color: #fff;
+			font-size: 15pt;
+		}
+		form {
+			margin-bottom: 75px;
+		}
+		form legend {
+			margin-bottom: 10px;
+			border-bottom: solid 1px #fff;
+		}
+		input {
+			font-size: 20pt;
+		}
+		label {
+			width: 200px;
+			display: inline-block;
+			text-align: right;
+		}
+		.input-field {
+			margin-bottom: 10px;
+		}
+		.password-breach-error {
+			color: red;
+		}
+		.password-okay {
+			color: green;
+		}
+		.float-left  { float: left;  }
+		.float-right { float: right; }
+		.clear       { clear: both;  }
+		.show        { display: block; }
+		.hide        { display: none; }
+	</style>
+</head>
+
+<body>
+
+	<div>
+		<form action="https://toepoke.co.uk" method="get">
+			<legend>Log-in</legend>
+			<div class="input-field">
+				<label for="username">e-mail</label>
+				<input id="username" type="text" value="me@toepoke.co.uk" />
+			</div>
+			<div class="input-field">
+				<label for="login-password">password</label>
+				<input id="login-password" type="password" value="12345678" />
+				<span class="password-breach-error hide"></span>
+				<span class="password-okay hide">&#9989;<!--green tick--></span>
+			</div>
+			<div class="input-field">
+				<input type="submit" value="Save" id="save-button">
+			</div>
+		</form>
+	</div>
+
+	<script type="text/javascript" src="../source/deps/js-sha1.js"></script>
+	<script type="text/javascript" src="../source/password-checker.js"></script> 
+	<script type="text/javascript" src="../source/pappwords-config.js"></script> 
+	<script type="text/javascript" src="../source/pappwords.js"></script> 
+	<script type="text/javascript" src="../source/pappwords-modal.js"></script> 
+	<script type="text/javascript">
+/// Wait for the injected website page to load, then inject our code.
+		var breachError = document.getElementsByClassName("password-breach-error")[0];
+		var pwdOk = document.getElementsByClassName("password-okay")[0];
+		var save = document.getElementById("save-button");
+
+		document.addEventListener("DOMContentLoaded", function() {
+			
+			Pappwords.onLoad({
+				message: "* Password has been breached {PRETTY-COUNT} times.",
+				failurePercentage: 100,
+				showDialog: false, 
+				onComplete: function(args) {
+					if (args.isPwned) {
+						breachError.innerHTML = args.message;
+						breachError.classList.remove("hide");
+					} else {
+						pwdOk.classList.remove("hide");
+					}
+				}
+			});
+			
+		});
+
+		save.addEventListener("click", function() {
+			breachError.classList.add("hide");
+			pwdOk.classList.add("hide");
+		});
+
+	</script>
+</body>
+</html>
+
