@@ -96,6 +96,9 @@ var Pappwords = {
 				if (isFinalCheck) {
 					// final check has been done, so what's the result?
 					var shouldReport = false
+
+					data.message = PappwordsConfig.translateMessage(highestHits, highestPrettyHits);
+
 					// We may be checking 1 or several passwords.  Consider:
 					//  - Login => 1 password
 					//  - Password change => 3 passwords (current, new and new confirm)
@@ -120,12 +123,7 @@ var Pappwords = {
 					} // clear password fields
 
 					if (shouldReport && PappwordsConfig.SHOW_DIALOG) {
-						// apply template changes
-						var template = PappwordsConfig.getMessage()
-						template = template.replace('{COUNT}', highestHits)
-						template = template.replace('{PRETTY-COUNT}', highestPrettyHits)
-
-						PappwordsModal.openPwndDialog(template, function () {
+						PappwordsModal.openPwndDialog(data.message, function () {
 							var warnOnly = PappwordsConfig.getWarnOnly()
 							if (warnOnly) {
 								// warnOnly => allow form submission to continue.
@@ -133,6 +131,11 @@ var Pappwords = {
 							}
 						})
 					} // shouldReport
+
+					if (PappwordsConfig.onComplete) {
+						var msg = PappwordsConfig.translateMessage(highestHits, highestPrettyHits);
+						PappwordsConfig.onComplete(data);
+					}
 					
 				} // isFinalCheck
 			}) // checkForPawnage
@@ -145,7 +148,9 @@ var Pappwords = {
 	}, // onSubmit
 
 	/// Fires on page load so we can find any forms with passwords on them
-	onLoad: function () {
+	onLoad: function (config) {
+		PappwordsConfig.applyOverrides(config);
+
 		// Show the adopted settings (easier for debugging)
 		PappwordsConfig.showSettings()
 
