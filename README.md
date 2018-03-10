@@ -105,5 +105,7 @@ There's two demos:
 
 * [https://github.com/emn178/js-sha1](https://github.com/emn178/js-sha1)
 * [https://haveibeenpwned.com/API/v2#PwnedPasswords](https://haveibeenpwned.com/API/v2#PwnedPasswords)
+* [JavaScript minification](https://javascript-minifier.com/)
+* [CSS minification](https://cssminifier.com/)
 
 
