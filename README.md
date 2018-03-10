@@ -66,19 +66,29 @@ The *shape* of **result** in the callback can be seen  [here](https://github.com
 ## Options
 
 ### Clear password fields (boolean)
-If a password is subject to a breach the password field will be cleared, forcing the user to enter a another password.  Defaults to true.
+If a password is subject to a breach the password field will be cleared, forcing the user to enter a another password.  
+
+Defaults to true.
 
 ### Warn only (boolean)
-If true, the end-user is told their password has been subject to a breach, but the form will still submit.  Default is false.
+If true, the end-user is told their password has been subject to a breach, but the form will still submit.  
+
+Default is false.
 
 ### Failure Percentage (decimal)
-See [below](#how-it-works) for details.  Defaults to 33%.
+See [below](#how-it-works) for details.  
+
+Defaults to 33%.
 
 ### Show Dialog (boolean)
 Flags whether the modal warning should be shown or not.
 
+Default is true.
+
 ### Message (string)
-The message the user sees in the breached dialog.  Defaults to the text in the above screenshot.
+The message the user sees in the breached dialog.  
+
+Defaults is the text in the [above screenshot](#pappwords).
 
 # Compatibility
 
