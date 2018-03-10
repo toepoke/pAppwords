@@ -28,7 +28,7 @@ var PappwordsConfig = {
 
 	/// If true the dialog will be shown (subject to the above).
 	/// If false the dialog is not shown (and you want to add JavaScript to report the issue yourself)
-	SHOW_DIALOG: false,
+	SHOW_DIALOG: true,
 
 	/// Message to appear in the dialog
   MESSAGE_DEFAULT:
@@ -106,7 +106,23 @@ var PappwordsConfig = {
     failure = parseFloat(failure)
 
     return failure
-  },
+	},
+
+	/// Whether the 
+	getShowDialog: function() {
+		// Doesn't make sense for Cloudflare version
+		return this.SHOW_DIALOG;
+	},
+	
+	/// Applies variables to the message
+	translateMessage: function(count, prettyCount) {
+		var template = this.getMessage();
+
+		template = template.replace('{COUNT}', count)
+		template = template.replace('{PRETTY-COUNT}', prettyCount)
+
+		return template;
+	},
 
 	/// Helper method that puts the settings (Cloudflare or defaults) into the console.
 	/// Makes debugging easier.
@@ -114,12 +130,28 @@ var PappwordsConfig = {
 		if (!this.DEBUG)
 			return;
     console.info('settings', {
-      warnOnly: this.getWarnOnly(),
+			warnOnly: this.getWarnOnly(),
+			showDialog: this.getShowDialog(),
       clearPasswords: this.getClearPasswords(),
       failurePercentage: this.getFailurePercentage(),
       message: this.getMessage()
     })
-  }
+	},
+
+	/// convenience function to handle user provided configuration changes
+	applyOverrides: function(config) {
+		this.MESSAGE_DEFAULT = config.message || this.MESSAGE_DEFAULT;
+		this.FAILURE_PERCENTAGE_DEFAULT = config.failurePercentage || this.FAILURE_PERCENTAGE_DEFAULT;
+		this.WARN_ONLY_DEFAULT = config.warnOnly || this.WARN_ONLY_DEFAULT;
+		this.CLEAR_PASSWORD_FIELDS_DEFAULT = config.clearPasswordFields || this.CLEAR_PASSWORD_FIELDS_DEFAULT;
+		this.onComplete = config.onComplete || this.onComplete;
+
+		// bools ...
+		if (config.showDialog === false)
+			this.SHOW_DIALOG = config.showDialog;
+		if (config.warnOnly === true)
+			this.WARN_ONLY_DEFAULT = config.warnOnly;
+	}
 
 } // PappwordsConfig
 
