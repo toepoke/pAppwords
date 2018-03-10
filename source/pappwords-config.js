@@ -6,6 +6,7 @@
 /// 
 
 var PappwordsConfig = {
+	DEBUG: false,
   FAILURE_PERCENTAGE_DEFAULT: 33,
   WARN_ONLY_DEFAULT: false,
   CLEAR_PASSWORD_FIELDS_DEFAULT: true,
@@ -86,6 +87,8 @@ var PappwordsConfig = {
 	/// Helper method that puts the settings (Cloudflare or defaults) into the console.
 	/// Makes debugging easier.
   showSettings: function () {
+		if (!this.DEBUG)
+			return;
     console.info('settings', {
       warnOnly: this.getWarnOnly(),
       clearPasswords: this.getClearPasswords(),
