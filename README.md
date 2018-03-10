@@ -3,12 +3,17 @@
 
 As responsible website proprietors we want to help and/or educate our users to the risks of poor passwords.
 
-Pappwords piggy backs on the fantastic work of [@troyhunt](https://twitter.com/troyhunt) and his [haveibeenpwned.com](https://haveibeenpwned.com/) website.
-
-Pappwrds is a [vanilla js](http://vanilla-js.com/) library you can install on your website and it will notify your users if the password they
+Pappwords is a [vanilla js](http://vanilla-js.com/) library you can install on your website and it will notify your users if the password they
 are using has been subject to a breach.
 
 ![Screenshot of Pappwords telling a user the password they used has been involved in a breach.](./docs/screenshot.png "Screenshot")
+
+The plug-in piggy backs on the fantastic work of [@troyhunt](https://twitter.com/troyhunt) and his [haveibeenpwned.com](https://haveibeenpwned.com/) website.
+
+# Demos
+
+1. The [Auto Demo](https://toepoke.github.io/pAppwords/docs/auto-demo.html) has zero configuration.
+2. The [Validation Demo](https://toepoke.github.io/pAppwords/docs/validation-demo.html) shows how you can configure how the plug-in behaves.
 
 ## Why Pappwords?
 
@@ -50,13 +55,39 @@ document.addEventListener("DOMContentLoaded", function() {
     showDialog: false, 
     onComplete: function(result) {
       // Whatever you want to do :-)
-
-      // For the shape of "result", see https://github.com/toepoke/pAppwords/blob/master/source/password-checker.js#L7
     }
   });
 			
 });
 ````
+
+The *shape* of **result** in the callback can be seen  [here](https://github.com/toepoke/pAppwords/blob/master/source/password-checker.js#L7).
+
+## Options
+
+### Clear password fields (boolean)
+If a password is subject to a breach the password field will be cleared, forcing the user to enter a another password.  Defaults to true.
+
+### Warn only (boolean)
+If true, the end-user is told their password has been subject to a breach, but the form will still submit.  Default is false.
+
+### Failure Percentage (decimal)
+See [below](#how-it-works) for details.  Defaults to 33%.
+
+### Show Dialog (boolean)
+Flags whether the modal warning should be shown or not.
+
+### Message (string)
+The message the user sees in the breached dialog.  Defaults to the text in the above screenshot.
+
+# Compatibility
+
+Tested working with:
+
+* Chrome
+* Firefox
+* IE Edge
+* IE 10 and 11 (via emulation)
 
 ## How It Works
 
@@ -68,7 +99,7 @@ If we think about typical password scenarios in a system, we have:
 2. Register - 2 passwords (password and password confirmation)
 3. Change password - 3 passwords (current password, new password and new password confirm)
 
-When the user submits a form (with a password), Pappwords will run a check for pwnage against all password fields in the form.
+When the user submits a form with a password field, Pappwords will run a check for pwnage against all password fields in the form.
 
 It then looks at the percentage failure for the passwords in that form.  This is set to 33% by default.  So ...
 
@@ -77,29 +108,6 @@ It then looks at the percentage failure for the passwords in that form.  This is
 - If however the user changes their passwords and none of the passwords are subject to a breach, the failure rate is zero and the dialog is not shown.
 
 The above means we can use Pappwords on all pages with passwords without being concerned about the scenario being run.
-
-## Options
-
-- Clear password fields (boolean) - If a password is subject to a breach the password field will be cleared, forcing the user to enter a another password.  Defaults to true.
-- Warn only (boolean) - If true, the end-user is told their password has been subject to a breach, but the form will still submit.  Default is false.
-- Failure Percentage (decimal) - See above.  Defaults to 33%.
-- Message (string).  The message the user sees in the breached dialog.  Defaults to the text in the above screenshot.
-
-# Compatibility
-
-Tested working with:
-
-* Chrome
-* Firefox
-* IE Edge
-* IE 10 and 11 (via emulation)
-
-# Demo
-
-There's two demos:
-
-1. The [Auto Demo](https://toepoke.github.io/pAppwords/docs/auto-demo.html) has zero configuration.
-2. The [Validation Demo](https://toepoke.github.io/pAppwords/docs/validation-demo.html) shows how you can configure how the plug-in behaves.
 
 # Credits
 
