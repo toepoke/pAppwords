@@ -95,7 +95,7 @@ var Pappwords = {
 				var isFinalCheck = (numPasswordsChecked === numPasswordFields)
 				if (isFinalCheck) {
 					// final check has been done, so what's the result?
-					var showDialog = false
+					var shouldReport = false
 					// We may be checking 1 or several passwords.  Consider:
 					//  - Login => 1 password
 					//  - Password change => 3 passwords (current, new and new confirm)
@@ -104,9 +104,9 @@ var Pappwords = {
 					var failurePercentage = (numPasswordsPwnd / numPasswordFields) * 100
 					if (failurePercentage >= PappwordsConfig.getFailurePercentage()) {
 						// we're over the "aggression" setting, so we'll show the user the dialog
-						showDialog = true
+						shouldReport = true
 					}
-					if (showDialog && PappwordsConfig.getClearPasswords()) {
+					if (shouldReport && PappwordsConfig.getClearPasswords()) {
 						// Clearing breached passwords is on, so clear out the effected passwords
 						for (var i = 0; i < pwnedPasswords.length; i++) {
 							var pwnedPassword = pwnedPasswords[i]
@@ -119,7 +119,7 @@ var Pappwords = {
 						}
 					} // clear password fields
 
-					if (showDialog) {
+					if (shouldReport && PappwordsConfig.SHOW_DIALOG) {
 						// apply template changes
 						var template = PappwordsConfig.getMessage()
 						template = template.replace('{COUNT}', highestHits)
@@ -132,7 +132,8 @@ var Pappwords = {
 								Pappwords._activeForm.submit()
 							}
 						})
-					} // showDialog
+					} // shouldReport
+					
 				} // isFinalCheck
 			}) // checkForPawnage
 		} // for each password field
