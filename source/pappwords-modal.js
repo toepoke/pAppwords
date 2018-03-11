@@ -74,7 +74,7 @@ var PappwordsModal = {
 			'<div class="app-modal-header">' +
 			'<a class="app-modal-closer" href="#">X</a>' +
 			'<div class="app-modal-title app-modal-bar">' +
-			'<h1>Pawned Password</h1>' +
+			'<h1>Pwned Password</h1>' +
 			'</div>' +
 			'</div>' +
 			'<div class="app-modal-content-container">' +

@@ -1,6 +1,6 @@
 /// 
 /// Pappwords:
-/// Class that handles the interaction between the website form and the pawned api.
+/// Class that handles the interaction between the website form and the pwned api.
 /// In essence we inject ourselves into the form submission process so we can perform
 /// the password check and show the dialog if required.
 ///
@@ -57,7 +57,7 @@ var Pappwords = {
 
 	/// Handler for the injected form submit
 	onSubmit: function (e) {
-		// find all password fields and see if they've been pawned
+		// find all password fields and see if they've been pwned
 		var passwordFields = e.currentTarget.querySelectorAll("input[type='password']")
 		var pwnedPasswords = []
 		var numPasswordFields = passwordFields.length
