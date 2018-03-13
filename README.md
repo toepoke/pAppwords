@@ -55,6 +55,12 @@ document.addEventListener("DOMContentLoaded", function() {
     showDialog: false, 
     onComplete: function(result) {
       // Whatever you want to do :-)
+
+      
+      // If the passwords were not subject to a breach, then:
+      // true => form should submit
+      // false => form should not submit (user handles submission themselves)
+      return true;
     }
   });
 			
