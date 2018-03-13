@@ -132,9 +132,16 @@ var Pappwords = {
 						})
 					} // shouldReport
 
+					var shouldSubmit = true;
 					if (PappwordsConfig.onComplete) {
 						var msg = PappwordsConfig.translateMessage(highestHits, highestPrettyHits);
-						PappwordsConfig.onComplete(data);
+						shouldSubmit = PappwordsConfig.onComplete(data);
+					} 
+
+					if (!shouldReport && shouldSubmit) {
+						// no breach to report => form can progress
+						// ... note that "onComplete" is fired first in case the user wants to do submission themselves
+						Pappwords._activeForm.submit();
 					}
 					
 				} // isFinalCheck
